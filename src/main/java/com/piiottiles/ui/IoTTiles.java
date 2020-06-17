@@ -1,4 +1,4 @@
-package com.iotbpm.iottiles;
+package com.piiottiles.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,8 +22,8 @@ import javax.imageio.ImageIO;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import com.iotbpm.bpmrules.IoTBPM;
-import com.iotbpm.util.WebBrowser;
+//import com.iotbpm.bpmrules.IoTBPM;
+//import com.iotbpm.util.WebBrowser;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -878,19 +878,19 @@ public class IoTTiles {
 
 	// Arduino Tron IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
-		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam1");
+/*		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			lblIconLabel_1.setIcon(camera_errorIcon);
 			return;
 		}
 		WebBrowser wb = new WebBrowser();
-		wb.url(webCamURL);
+		wb.url(webCamURL); */
 		lblIconLabel_1.setIcon(camera_addIcon);
 	}
 
 	// Arduino Tron Mode
 	public void panel_2Clicked(MouseEvent e) {
-		String mode = com.iotbpm.model.StateList.getInstance().getState("Mode");
+/*		String mode = com.iotbpm.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
 			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"/&message=*_Arduino_Tron_Active^^^^^^^^^^^^^^^^^^^^^&");
@@ -903,7 +903,7 @@ public class IoTTiles {
 			com.iotbpm.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
-		}
+		} */
 	}
 
 //	String alert = com.iotbpm.model.StateList.getInstance().getState("Alert");
@@ -923,7 +923,7 @@ public class IoTTiles {
 
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		String personal = com.iotbpm.model.StateList.getInstance().getState("Personal");
+/*		String personal = com.iotbpm.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
 			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"/&message=**_Employee_Present_*^^^^^^^^^^^^^^^^^^^^^&");
@@ -936,12 +936,12 @@ public class IoTTiles {
 			com.iotbpm.model.StateList.getInstance().putState("Personal", "Occupied");
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
-		}
+		} */
 	}
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		String office = com.iotbpm.model.StateList.getInstance().getState("Office");
+/*		String office = com.iotbpm.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
 			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"/&message=**_Office_Day_Mode_**^^^^^^^^^^^^^^^^^^^^^&");
@@ -954,7 +954,7 @@ public class IoTTiles {
 			com.iotbpm.model.StateList.getInstance().putState("Office", "Night");
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
-		}
+		} */
 	}
 
 	// Office Temperature
@@ -1173,13 +1173,13 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"/&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
+/*		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"/&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&"); */
 	}
 
 	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
-		String doorOpen = com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
+/*		String doorOpen = com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
 		if (doorOpen.indexOf("Tron") != -1) {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
 			lblBottomLabel_14.setText("Chime Signal");
@@ -1188,7 +1188,7 @@ public class IoTTiles {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Tron");
 			lblBottomLabel_14.setText("IoT Display");
 			lblIconLabel_14.setIcon(phone_openIcon);
-		}
+		} */
 	}
 
 	// IoT Dash Button
@@ -1303,7 +1303,7 @@ public class IoTTiles {
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
+/*		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
@@ -1336,13 +1336,13 @@ public class IoTTiles {
 			} else {
 				lblIconLabel_20.setIcon(new ImageIcon(image));
 			}
-		}
+		} */
 	}
 
 	public void panel_21Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
+/*		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
@@ -1375,11 +1375,11 @@ public class IoTTiles {
 			} else {
 				lblIconLabel_21.setIcon(new ImageIcon(image));
 			}
-		}
+		} */
 	}
 
 	void windowClosingAction(WindowEvent e) {
-		IoTBPM.stopIoTServer();
+//		IoTBPM.stopIoTServer();
 		System.exit(0);
 	}
 
