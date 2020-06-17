@@ -4,13 +4,13 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.piiottron</groupId>
-	<artifactId>Pi_IoT_Tron</artifactId>
+	<groupId>com.piiottiles</groupId>
+	<artifactId>Pi_IoT_Tiles</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Raspberry Pi IoT Tron :: Internet of Things Drools-jBPM Expert System using Raspberry Pi Tron AI-IoTBPM Processing</name>
-	<description>Raspberry Pi IoT Tron Drools-jBPM :: Raspberry Pi IoT Tron Sensor Application AI-IoTBPM Client using AI-IoTBPM Drools-jBPM</description>
+	<name>Raspberry Pi IoT Tiles :: Internet of Things Drools-jBPM Expert System using Raspberry Pi Tiles AI-IoTBPM Processing</name>
+	<description>Raspberry Pi IoT Tiles Drools-jBPM :: Raspberry Pi IoT Tiles Sensor Application AI-IoTBPM Client using AI-IoTBPM Drools-jBPM</description>
 
 	<properties>
 	    <maven.compiler.target>1.7</maven.compiler.target>
