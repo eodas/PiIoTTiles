@@ -14,6 +14,9 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Properties;
 
+import com.piiottiles.ui.IoTEvents;
+import com.piiottiles.ui.IoTTiles;
+
 /**
  * Executive Order Corporation we make Things Smart
  *
@@ -109,8 +112,10 @@ public class RPiIoTTiles {
 			@Override
 			public void run() {
 				try {
-//					ArduinoWindow window = new ArduinoWindow(exitOnClose);
-//					window.show(); // window.frmEo.setVisible(true);
+					IoTEvents iotEvents = new IoTEvents();
+					IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
+					// iotTiles.show(); // .setVisible(true);
+					iotTiles.show(); // setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

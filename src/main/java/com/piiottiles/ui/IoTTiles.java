@@ -852,7 +852,7 @@ public class IoTTiles {
 		panel_20.setBounds(530, 5, 205, 205);
 		frame.getContentPane().add(panel_20);
 		panel_20.setLayout(new BorderLayout(0, 0));
-		panel_20Clicked(null);
+  		panel_20Clicked(null);
 
 		panel_21 = new JPanel();
 		panel_21.setToolTipText(
@@ -867,7 +867,7 @@ public class IoTTiles {
 		panel_21.setBounds(530, 215, 205, 205);
 		frame.getContentPane().add(panel_21);
 		panel_21.setLayout(new BorderLayout(0, 0));
-		panel_21Clicked(null);
+  		panel_21Clicked(null);
 
 		return frame;
 	}
@@ -1303,7 +1303,7 @@ public class IoTTiles {
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = null; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
+		String webCamURL = ""; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
@@ -1342,7 +1342,7 @@ public class IoTTiles {
 	public void panel_21Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = null; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
+		String webCamURL = ""; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
