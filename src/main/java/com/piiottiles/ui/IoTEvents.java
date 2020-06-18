@@ -14,7 +14,7 @@ public class IoTEvents {
 	public void IoTDeviceEvent(String request) {
 		System.out.println("> EVENT " + request);
 
-//		DeviceEvent deviceEvent = new DeviceEvent();
+		// DeviceEvent deviceEvent = new DeviceEvent();
 		String[] req = Pattern.compile(" ").split(request);
 
 		if (req[0].equals("GET")) {
@@ -34,7 +34,7 @@ public class IoTEvents {
 				}
 			}
 			String response = "";
-//			response = jbpmRules.receive(deviceEvent);
+			response = null; //jbpmRules.receive(deviceEvent);
 			if ((response != null) && (response.length() > 0)) {
 				System.out.println("> RESPONSE " + response);
 			}
