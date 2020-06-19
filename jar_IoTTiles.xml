@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project RPiTron">
+<project default="create_run_jar" name="Create Runnable Jar for Project RPiIoTTiles">
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
@@ -7,9 +7,9 @@
     <property name="dir.workspace" value="${dir.buildfile}/../.."/>
     <property name="dir.jarfile" value="${dir.buildfile}/jar"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/RPiTron.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.jarfile}/RPiIoTTiles.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Main-Class" value="com.piiottron.RPiTron"/>
+                <attribute name="Main-Class" value="com.piiottiles.RPiIoTTiles"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.buildfile}/target/classes"/>

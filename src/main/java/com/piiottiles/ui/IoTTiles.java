@@ -20,15 +20,26 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import java.net.URL;
+import java.util.Date;
 import java.net.MalformedURLException;
 
-//import com.iotbpm.bpmrules.IoTBPM;
-//import com.iotbpm.util.WebBrowser;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinPullResistance;
+// import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+import com.piiottiles.RPiIoTTiles;
+// import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+// import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import com.piiottiles.server.AgentConnect;
+
 /**
- * Main window implementation for the Arduino Tron IoT Tiles example
+ * Main window implementation for the Raspberry Pi IoT Tiles example
  */
 public class IoTTiles {
 	private final JFrame frameIoT;
@@ -177,6 +188,15 @@ public class IoTTiles {
 	private JLabel lblIconLabel_21;
 	private Boolean initpanel_21 = true;
 
+    GpioController gpio;
+	
+    // provision gpio pin #01 & #03 as an output pins and blink
+    GpioPinDigitalOutput led1;
+    GpioPinDigitalOutput led2;
+
+    // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
+    GpioPinDigitalInput button1;
+    
 	public IoTTiles(IoTEvents iotEvents, boolean exitOnClose) {
 		this.iotEvents = iotEvents;
 		this.frameIoT = buildFrame(exitOnClose);
@@ -200,7 +220,7 @@ public class IoTTiles {
 
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setTitle(
-				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
+				"Raspberry Pi IoT Tiles :: Internet of Things Drools-jBPM using Raspberry Pi IoT Tron AI-IoTBPM");
 		frame.setBounds(100, 100, 953, 465);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -266,7 +286,7 @@ public class IoTTiles {
 
 		panel_1 = new JPanel();
 		panel_1.setToolTipText(
-				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Tron Things, like the Raspberry Pi Tron IoT Web Camera.");
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -278,7 +298,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_1 = new JLabel("Arduino Tron IoT Web Camera");
+		JLabel lblTopLabel_1 = new JLabel("Raspberry Pi IoT Web Camera");
 		lblTopLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_1.setForeground(Color.WHITE);
 		panel_1.add(lblTopLabel_1, BorderLayout.NORTH);
@@ -296,7 +316,7 @@ public class IoTTiles {
 		lblIconLabel_1.setIcon(cameraIcon);
 
 		panel_2 = new JPanel();
-		panel_2.setToolTipText("The Arduino Tron IoT Things activity and behavior is fully control from IoT Tiles.");
+		panel_2.setToolTipText("The Raspberry Pi IoT Things activity and behavior is fully control from IoT Tiles.");
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -308,7 +328,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_2 = new JLabel("Arduino Tron Mode");
+		JLabel lblTopLabel_2 = new JLabel("Raspberry Pi Mode");
 		lblTopLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_2.setForeground(Color.WHITE);
 		panel_2.add(lblTopLabel_2, BorderLayout.NORTH);
@@ -358,7 +378,7 @@ public class IoTTiles {
 
 		panel_4 = new JPanel();
 		panel_4.setToolTipText(
-				"Arduino Tron IoT Tiles control smart office automation and monitoring, including IoT smart desks in your office.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring, including IoT smart desks in your office.");
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -450,7 +470,7 @@ public class IoTTiles {
 
 		panel_7 = new JPanel();
 		panel_7.setToolTipText(
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.");
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Raspberry Pi contact switch event.");
 		panel_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -510,7 +530,7 @@ public class IoTTiles {
 
 		panel_9 = new JPanel();
 		panel_9.setToolTipText(
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.");
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Raspberry Pi contact switch event.");
 		panel_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -600,7 +620,7 @@ public class IoTTiles {
 
 		panel_12 = new JPanel();
 		panel_12.setToolTipText(
-				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, Open Window Shades, Activate Motion Sensors.");
+				"The Raspberry Pi IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, Open Window Shades, Activate Motion Sensors.");
 		panel_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -630,7 +650,7 @@ public class IoTTiles {
 
 		panel_13 = new JPanel();
 		panel_13.setToolTipText(
-				"The Arduino Tron IoT Display is a small device that can sit on your desk or be mounted to a wall. It provides situational awareness, alerts and notification messages from your IoT devices.");
+				"The Raspberry Pi IoT Display is a small device that can sit on your desk or be mounted to a wall. It provides situational awareness, alerts and notification messages from your IoT devices.");
 		panel_13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -642,7 +662,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_13 = new JLabel("Arduino Tron IoT Display");
+		JLabel lblTopLabel_13 = new JLabel("Raspberry Pi IoT Display");
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
@@ -660,7 +680,7 @@ public class IoTTiles {
 
 		panel_14 = new JPanel();
 		panel_14.setToolTipText(
-				"The Arduino Tron Wireless Alert Sensor provides for audio (door chime) and can be integrated with any wireless security system, driveway alarms, motion sensor, delivery detect alerts, wireless door entry chime, doorbell or panic button alarms.");
+				"The Raspberry Pi Wireless Alert Sensor provides for audio (door chime) and can be integrated with any wireless security system, driveway alarms, motion sensor, delivery detect alerts, wireless door entry chime, doorbell or panic button alarms.");
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -690,7 +710,7 @@ public class IoTTiles {
 
 		panel_15 = new JPanel();
 		panel_15.setToolTipText(
-				"The Arduino Tron IoT Dash Button is a programmable button based on the Arduino Tron WiFi Dash Button alert and can be configured in Arduino Tron AI-IoTBPM Drools-jBPM Server IoT cloud services.");
+				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash Button alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -750,7 +770,7 @@ public class IoTTiles {
 
 		panel_17 = new JPanel();
 		panel_17.setToolTipText(
-				"The Arduino Tron IoT Dash Button is a programmable button based on the Arduino Tron WiFi Dash Button alert and can be configured in Arduino Tron AI-IoTBPM Drools-jBPM Server IoT cloud services.");
+				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash Button alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -811,7 +831,7 @@ public class IoTTiles {
 
 		panel_19 = new JPanel();
 		panel_19.setToolTipText(
-				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer.");
+				"The Raspberry Pi Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer.");
 		panel_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -841,7 +861,7 @@ public class IoTTiles {
 
 		panel_20 = new JPanel();
 		panel_20.setToolTipText(
-				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
 		panel_20.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -856,7 +876,7 @@ public class IoTTiles {
 
 		panel_21 = new JPanel();
 		panel_21.setToolTipText(
-				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
 		panel_21.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -876,7 +896,7 @@ public class IoTTiles {
 		this.frameIoT.setVisible(true);
 	}
 
-	// Arduino Tron IoT Tiles
+	// Raspberry Pi IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
 		String webCamURL = null; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
@@ -888,19 +908,22 @@ public class IoTTiles {
 		lblIconLabel_1.setIcon(camera_addIcon);
 	}
 
-	// Arduino Tron Mode
+	// Raspberry Pi Mode
 	public void panel_2Clicked(MouseEvent e) {
-		String mode = null; //com.iotbpm.model.StateList.getInstance().getState("Mode");
+		String mode = com.piiottiles.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
+			gpioController();
+			serverIoTSendPost();
+			
 //			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 //					"/&message=*_Arduino_Tron_Active^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Mode", "Active");
+  			com.piiottiles.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
 //			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 //					"/&message=*_Arduino_Tron_Lock_*^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Mode", "Lock");
+  			com.piiottiles.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
 		}
@@ -1016,7 +1039,7 @@ public class IoTTiles {
 	// Front Door Open
 	public void panel_7Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.",
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Raspberry Pi contact switch event.",
 				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -1080,7 +1103,7 @@ public class IoTTiles {
 	// Lobby Door Open
 	public void panel_9Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.",
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Raspberry Pi contact switch event.",
 				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -1166,9 +1189,9 @@ public class IoTTiles {
 
 	public void panel_12Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, "
+				"The Raspberry Pi IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, "
 						+ "Open Window Shades, Activate Motion Sensors.",
-				"The Arduino Tron IoT is used to Connect to External Devices", JOptionPane.INFORMATION_MESSAGE);
+				"The Raspberry Pi IoT is used to Connect to External Devices", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	// Tron IoT Message
@@ -1194,7 +1217,7 @@ public class IoTTiles {
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"Clear IoT Dash Button Sensor process triggered by an Arduino Tron event message.", "IoT Dash Button",
+				"Clear IoT Dash Button Sensor process triggered by an Raspberry Pi event message.", "IoT Dash Button",
 				JOptionPane.INFORMATION_MESSAGE);
 		panel_15DashButtonAlert("");
 	}
@@ -1378,9 +1401,154 @@ public class IoTTiles {
 		}
 	}
 
+
+	/**
+	 *    Raspberry Pi Pinout
+	 *      3V3  (1)  (2) 5V
+	 *    GPIO2  (3)  (4) 5V
+	 *    GPIO3  (5)  (6) GND
+	 *    GPIO4  (7)  (8) GPIO14
+	 *      GND  (9) (10) GPIO15
+	 *   GPIO17 (11) (12) GPIO18
+	 *   GPIO27 (13) (14) GND
+	 *   GPIO22 (15) (16) GPIO23
+	 *      3V3 (17) (18) GPIO24
+	 *   GPIO10 (19) (20) GND
+	 *    GPIO9 (21) (22) GPIO25
+	 *   GPIO11 (23) (24) GPIO8
+	 *      GND (25) (26) GPIO7
+	 *    GPIO0 (27) (28) GPIO1
+	 *    GPIO5 (29) (30) GND
+	 *    GPIO6 (31) (32) GPIO12
+	 *   GPIO13 (33) (34) GND
+	 *   GPIO19 (35) (36) GPIO16
+	 *   GPIO26 (37) (38) GPIO20
+	 *      GND (39) (40) GPIO21
+	 *
+	 * BerryClip+ - 6 LED - 2 Switch - 1 Buzzer Board
+	 * Hardware Reference
+	 * =============================
+	 * The components are connected to the main Pi GPIO header (P1)
+	 * Component  Pin       BCM    WiringPi
+	 * ---------|-------|--------|---------
+	 * LED 1    - P1-07 - GPIO4  - GPIO. 7
+	 * LED 2    - P1-11 - GPIO17 - GPIO. 0
+	 * LED 3    - P1-15 - GPIO22 - GPIO. 3
+	 * LED 4    - P1-19 - GPIO10
+	 * LED 5    - P1-21 - GPIO9
+	 * LED 6    - P1-23 - GPIO11
+	 * Buzzer   - P1-24 - GPIO8
+	 * Switch 1 - P1-26 - GPIO7
+	 * Swtich 2 - P1-22 - GPIO25
+	 *
+	 * Jam HAT - 6 LED - 2 Switch - 1 Buzzer Board
+	 * The table below shows the pin numbers for BCM, Board and the matching GPIO Zero objects.
+	 * |Component |GPIO.BCM | BOARD  |GPIO Zero object |WiringPi | Notes 
+	 * |----------|---------|--------|-----------------|---------|
+	 * | LED1     | GPIO 5  | Pin 29 | lights_1.red    | GPIO.21 |
+	 * | LED2     | GPIO 6  | Pin 31 | lights_2.red    | GPIO.22 |
+	 * | LED3     | GPIO 12 | Pin 32 | lights_1.yellow | GPIO.26 |
+	 * | LED4     | GPIO 13 | Pin 33 | lights_2.yellow | GPIO.23 |
+	 * | LED5     | GPIO 16 | Pin 36 | lights_1.green  | GPIO.27 |
+	 * | LED6     | GPIO 17 | Pin 11 | lights_2.green  | GPIO. 0 |
+	 * | Button 1 | GPIO 19 | Pin 35 | button_1        | GPIO.24 | Connected to R8/R10 
+	 * | Button 2 | GPIO 18 | Pin 12 | button_2        | GPIO. 1 | Connected to R7/R9 
+	 * | Buzzer   | GPIO 20 | Pin 38 | buzzer          | GPIO.28 |
+	 *
+	 * Wiring Pi - GPIO Interface library for the Raspberry Pi
+	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
+	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+ 	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+	 * |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |
+	 * |   2 |   8 |   SDA.1 |   IN | 1 |  3 || 4  |   |      | 5v      |     |     |
+	 * |   3 |   9 |   SCL.1 |   IN | 1 |  5 || 6  |   |      | 0v      |     |     |
+	 * |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | IN   | TxD     | 15  | 14  |
+	 * |     |     |      0v |      |   |  9 || 10 | 1 | IN   | RxD     | 16  | 15  |
+	 * |  17 |   0 | GPIO. 0 |  OUT | 0 | 11 || 12 | 0 | OUT  | GPIO. 1 | 1   | 18  |
+	 * |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |
+	 * |  22 |   3 | GPIO. 3 |  OUT | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |
+	 * |     |     |    3.3v |      |   | 17 || 18 | 0 | OUT  | GPIO. 5 | 5   | 24  |
+	 * |  10 |  12 |    MOSI |   IN | 0 | 19 || 20 |   |      | 0v      |     |     |
+	 * |   9 |  13 |    MISO |   IN | 0 | 21 || 22 | 1 | OUT  | GPIO. 6 | 6   | 25  |
+	 * |  11 |  14 |    SCLK |   IN | 0 | 23 || 24 | 1 | IN   | CE0     | 10  | 8   |
+	 * |     |     |      0v |      |   | 25 || 26 | 1 | IN   | CE1     | 11  | 7   |
+	 * |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |
+	 * |   5 |  21 | GPIO.21 |  OUT | 0 | 29 || 30 |   |      | 0v      |     |     |
+	 * |   6 |  22 | GPIO.22 |  OUT | 0 | 31 || 32 | 0 | OUT  | GPIO.26 | 26  | 12  |
+	 * |  13 |  23 | GPIO.23 |  OUT | 0 | 33 || 34 |   |      | 0v      |     |     |
+	 * |  19 |  24 | GPIO.24 |   IN | 0 | 35 || 36 | 1 | OUT  | GPIO.27 | 27  | 16  |
+	 * |  26 |  25 | GPIO.25 |   IN | 0 | 37 || 38 | 0 | IN   | GPIO.28 | 28  | 20  |
+	 * |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |
+	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
+	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
+	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
+	 */
+    
+	/**
+	 * This code demonstrates how to perform simple blinking LED logic of a
+	 * GPIO pin on the Raspberry Pi using the Pi4J library.
+	 */
+	void gpioController() {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+			return;
+		}
+
+		if (gpio == null) {
+			// create gpio controller
+			gpio = GpioFactory.getInstance();
+
+			// provision gpio pin #01 & #03 as an output pins and blink
+			led1 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_21);
+			led2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_22);
+
+			// provision gpio pin #02 as an input pin with its internal pull down resistor enabled
+			button1 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_24, PinPullResistance.PULL_DOWN);
+		}
+		// continuously blink the led every 1/2 second for 15 seconds
+		led1.blink(500, 15000);
+
+		// continuously blink the led every 1 second
+		led2.blink(1000, 15000);
+	}
+	
+	void serverIoTSendPost() {
+		String postURL = RPiIoTTiles.server;
+		if ((postURL == "") || (postURL.indexOf("0.0.0.0") != -1)) {
+			System.err.println("Note: IoT Kiosk server " + postURL
+					+ " in server=http://10.0.0.2/... not defined in iotbpm.properties file.");
+			return;
+		}
+
+		String postMsg = "/?id=" + RPiIoTTiles.id;
+
+		java.util.Date date = new Date();
+		long fixtime = date.getTime();
+		fixtime = (long) (fixtime * 0.001);
+		postMsg = postMsg + "&timestamp=" + Long.toString(fixtime);
+
+		postMsg = postMsg + "&event=" + "YO!"; // Main.USER.getID();
+		postMsg = postMsg + "&process=" + RPiIoTTiles.process;
+		postMsg = postMsg + "&name=" + RPiIoTTiles.name;
+		postMsg = postMsg + "&keypress=1.0";
+
+		AgentConnect agentConnect = new AgentConnect();
+		agentConnect.sendPost(postURL, postMsg);
+		// agentConnect.sendGet(postURL, postMsg);
+	}
+	
 	void windowClosingAction(WindowEvent e) {
+		// stop all GPIO activity/threads
+		// (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller gpio.shutdown() bypass");
+		} else {
+			gpio.shutdown(); // <--- implement this method call if you wish to terminate the Pi4J GPIO controller
+		}
+		
 		// IoTBPM.stopIoTServer();
 		// System.exit(0);
 	}
-
 }

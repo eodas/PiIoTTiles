@@ -2,7 +2,7 @@
 
 ![alt tag](http://iotbpm.com/wp-content/uploads/2019/07/RaspberryPiArduino.3.png "Raspberry Pi IoT Tron")
 
-Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi Tron IoT Things, like the Raspberry Pi Tron IoT Web Cameras
+Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Tron Things, like the Raspberry Pi Tron IoT Web Cameras.
 
 ### Raspberry Pi IoT (Pi IoT Tron) - INTERNET OF THINGS (IoT)
 
@@ -26,15 +26,15 @@ Arduino Tron :: EOSPY-Executive Order Sensor Processor System - Arduino Tron MQT
 The power of the IoT (Internet of Things) device increases greatly when business process (jBPM) can use them to provide information
 about our real-world as well as execute IoT (devices) as part of our business process. The jBPM-BPMN modular allow us to define 
 both the Business Processes and IoT Devices Behavior at the same time using one diagram. With EOSpy adding Drools-jBPM to IoT,
-we make the IoT devices “smart”. Moving beyond just collecting IoT data and transitioning, to leveraging the new wealth of IoT data, 
+we make the IoT devices â€œsmartâ€�. Moving beyond just collecting IoT data and transitioning, to leveraging the new wealth of IoT data, 
 to improving the smart decision making is the key. Executive Order EOSpy Arduino Tron AI-IoT will help these IoT devices, environments 
 and products to self-monitor, self-diagnose and eventually, self-direct.
 
-RPi IoT Tron Java — Automation Alert Monitoring – A Java version of the RPi IoT Tron – Executive Order Sensor Processor System Client.
+RPi IoT Tron Java â€” Automation Alert Monitoring â€“ A Java version of the RPi IoT Tron â€“ Executive Order Sensor Processor System Client.
  
 The RPi IoT Tron Java Client application allows you to transmit automation and remote monitoring system information directly to the EOSPY Server 
 from your own Java application. Monitor buildings, servers, vehicles and people from anywhere in the world and post there status and condition 
-directly to the EOSPY Server from your own application. Stay connected and informed to what’s important. The EOSPY Executive Order Spy Java Client
+directly to the EOSPY Server from your own application. Stay connected and informed to whatâ€™s important. The EOSPY Executive Order Spy Java Client
 is a GPS tracking automation and remote monitoring system that is a complete custom package for your business or office. Its wireless GPS tracking 
 allows you to monitor your office, systems, personal property, and business from anywhere in the world. 
 
@@ -43,16 +43,16 @@ temperature, humidity and other information. An alarm is triggered if the SOS bu
 The RPi IoT Tron Java ties all location and environment monitoring information on one GPS Map Screen.
 
 Monitor buildings, servers, vehicles and people from anywhere in the world and post there status and condition directly to the EOSPY Server from your own application. 
-Stay connected and informed to what’s important. The EOSPY Executive Order Spy Java Client is a GPS tracking automation and remote monitoring system that is a complete
+Stay connected and informed to whatâ€™s important. The EOSPY Executive Order Spy Java Client is a GPS tracking automation and remote monitoring system that is a complete
 custom package for your business or office. Its wireless GPS tracking allows you to monitor your office, systems, personal property, and business from anywhere in the world. Receive information from any number of events like when an employee arrives on-site, where a vehicle is located and even receive remote ambient light intensity, temperature, humidity and other information. An alarm is triggered if the SOS button is pressed or the vehicle has exceeded the speed you defined. The EOSPY Java ties all location and environment monitoring information on one GPS Map Screen.
 
-Executive Order Spy — This quick guide will help you install and configure the EOSPY – Executive Order Sensor Processor System components.
+Executive Order Spy â€” This quick guide will help you install and configure the EOSPY â€“ Executive Order Sensor Processor System components.
 
 Executive Order Spy has several components:
 1. The EOSPY AI-IoT, the Internet of Things Drools-jBPM Expert System.
 2. The EOSPY Server, the live map GPS tracking Windows program.
 3. The EOSPY Client, the Arduino Tron or Android application you install on an Android phone.
-4. Configure GSM/GPRS/GPS Tracking Devices to use with EOSPY – Executive Order Sensor Processor System Server.
+4. Configure GSM/GPRS/GPS Tracking Devices to use with EOSPY â€“ Executive Order Sensor Processor System Server.
 
 You can have an unlimited number and combination of EOSPY Clients and/or GPS tracking devices in use with EOSPY Server.
 (Download EOSPY Server from our website http://www.eospy.com and Download EOSPY Client from the Google Store, standard or TI-SensorTag version)
@@ -67,39 +67,39 @@ Check wiringPi version with:<br />
 $ gpio -v<br />
 The wiringPi version 2.52 after the upgrade.<br />
 
-(2) EOSPY AI-IoT – To install the EOSPY AI-IoT program on your Windows computer, download and install the "Eclipse IDE for Java Developers."
-Use the Eclipse feature to Add new software, available on the Eclipse menu “Help -> Install New Software”. Select the “Add” option and install these packages:
+(2) EOSPY AI-IoT â€“ To install the EOSPY AI-IoT program on your Windows computer, download and install the "Eclipse IDE for Java Developers."
+Use the Eclipse feature to Add new software, available on the Eclipse menu â€œHelp -> Install New Softwareâ€�. Select the â€œAddâ€� option and install these packages:
 1. Drools + jBPM Update Site 7.38.0 - http://downloads.jboss.org/jbpm/release/7.38.0.Final/updatesite/
 2. BPMN2-Modeler 1.5.1 - http://download.eclipse.org/bpmn2-modeler/updates/photon/1.5.1/
 3. Eclipse Marketplace: Code RASPIde: IDE for Raspberry Pi GPIO - CodeRASPIde is our small contribution to the IoT and Java Eclipse Community.
 4. GIT the RPi IoT Tron AI-IoT from the source code repository, and Import Existing Maven project.
 
-(3) EOSPY Server – To install the EOSPY Server program on your Windows computer, download the eospy.exe installation program and click on the eospy.exe install program.
+(3) EOSPY Server â€“ To install the EOSPY Server program on your Windows computer, download the eospy.exe installation program and click on the eospy.exe install program.
 EOSPY will by default install in the destination location: C:\Program Files\EOSpy Server and create a Start Menu folder: EOSPY on your desktop.
 To start the EOSPY Server, click on the Eagle icon on your desktop. The EOSPY login and map will appear in your browser. The default email and password are both: admin
 
-(4.A) EOSPY Client (Arduino Tron) – To install the EOSPY Arduino Tron application on your Arduino Device, download the EOSPY Arduino Tron Sensor application from GIT.
+(4.A) EOSPY Client (Arduino Tron) â€“ To install the EOSPY Arduino Tron application on your Arduino Device, download the EOSPY Arduino Tron Sensor application from GIT.
 Update the with WiFi network values for network SSID (name) and network password. Update the EOSPY Server IP address and unique unit ID values and add in EOSPY Server.
 Also, you may use a DHT11 digital temperature and humidity sensor see the Arduino Tron Sensor sketch for more details and information.
 
-(4.B) EOSPY Client (Android) – To install the EOSPY Client application on your phone, download the EOSPY application from the Google App Store.
+(4.B) EOSPY Client (Android) â€“ To install the EOSPY Client application on your phone, download the EOSPY application from the Google App Store.
 To start the EOSPY Client, click on the Eagle icon on your phone. The EOSPY Client screen will appear. You can also download the EOSPY TI-SensorTag Client version.
 
 To configure a new EOSPY Client you will need to enter the EOSPY Server address, Domain name, or IP address into the Server address.
-Next add this device in the EOSPY Server by entering the Device name and the Device identifier. Swipe the Service Status On and YOU’RE DONE.
+Next add this device in the EOSPY Server by entering the Device name and the Device identifier. Swipe the Service Status On and YOUâ€™RE DONE.
 The device will appear on the EOSPY Server map the next time the EOSPY Client sends GPS position information. 
 
-(4) GPS Tracking Devices – Many companies make various off-the-shelf GPS Tracking devices. Configuring these devices will vary a little from vendors.
-First, add the new device with a unique identifier into the EOSPY – Executive Order Sensor Processor System Server.
+(4) GPS Tracking Devices â€“ Many companies make various off-the-shelf GPS Tracking devices. Configuring these devices will vary a little from vendors.
+First, add the new device with a unique identifier into the EOSPY â€“ Executive Order Sensor Processor System Server.
 Next, configure your device to use the appropriate EOSPY Server IP address and port number. If the device fails to report, check the IP Address and Device ID.
 
 Device Unique Identifier<br />
 For most devices you should use an IMEI (International Mobile Equipment Identity) number as a unique identifier.
 However, some devices have vendor specific unique identifiers, for example TK-103 devices use 12-digit identifier.
 
-If you don’t know your device identifier you can configure your device first and look at the server log file.
+If you donâ€™t know your device identifier you can configure your device first and look at the server log file.
 When the server receives a message from an unknown device it writes a record containing a unique identifier of a new device.
-Look for records like “Unknown device – 123456789012345”; “Unknown device” 123456789012345 is your new Device identifier.
+Look for records like â€œUnknown device â€“ 123456789012345â€�; â€œUnknown deviceâ€� 123456789012345 is your new Device identifier.
 
 Address and Port<br />
 To select the correct port, find your device in the list of supported devices. The Port column of the corresponding row contains default port numbers for your device.

@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.piiottiles.ui.IoTEvents;
 import com.piiottiles.ui.IoTTiles;
+import com.piiottiles.model.StateList;
 
 /**
  * Executive Order Corporation we make Things Smart
@@ -67,11 +68,11 @@ public class RPiIoTTiles {
 	private boolean is64bitJMV = false;
 	private boolean knowledgeDebug = false;
 
-	public String id = ""; // 123456
-	public String gpio = ""; // create gpio controller
-	public String name = ""; // IoT_Parking_Kiosk
-	public String process = ""; // com.IoTParkingKiosk
-	public String server = ""; // http://10.0.0.2:5055
+	public static String id = ""; // 123456
+	public static String gpio = ""; // create gpio controller
+	public static String name = ""; // IoT_Parking_Kiosk
+	public static String process = ""; // com.IoTParkingKiosk
+	public static String server = ""; // http://10.0.0.2:5055
 	
 	public RPiIoTTiles(String[] args) {
 
@@ -121,6 +122,9 @@ public class RPiIoTTiles {
 				}
 			}
 		});
+		
+		StateList stateList = new StateList();
+		
 	}
 
 	public void readProperties() {
