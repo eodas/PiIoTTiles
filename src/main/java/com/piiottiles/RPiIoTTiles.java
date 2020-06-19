@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.piiottiles.ui.IoTEvents;
 import com.piiottiles.ui.IoTTiles;
+import com.piiottiles.server.AgentConnect;
 import com.piiottiles.model.StateList;
 
 /**
@@ -30,44 +31,18 @@ import com.piiottiles.model.StateList;
  */
 
 /**
- * Update these with your LAT/LON GPS position values
- * 
- * You can find LAT/LON from an address https://www.latlong.net/convert-address-to-lat-long.html
- * String address = "National_Air_Space_Museum_600_Independence_Ave_Washington_DC_20560";
- * 
- * Values ?id=334455&timestamp=1521212240&lat=38.888160&lon=-77.019868&speed=0.0&bearing=0.0&altitude=0.0&accuracy=0.0&batt=98.7
- * String timestamp = "1521212240"; // timestamp
- * String speeds = "0.0";
- * String bearing = "0.0";
- * String altitude = "0.0";
- * String accuracy = "0.0"; // position accuracy
- * String batt = "89.7"; // battery value
- * String light = "53.4"; // photocell value
- * 
- * Arduino Tron currently supports these additional data fields in the Server Event data model:
- * 
- * id=6&event=allEvents&protocol=osmand&servertime=<date>&timestamp=<date>&fixtime=<date>&outdated=false&valid=true
- * &lat=38.85&lon=-84.35&altitude=27.0&speed=0.0&course=0.0&address=<street address>&accuracy=0.0&network=null
- * &batteryLevel=78.3&textMessage=Message_Sent&temp=71.2&ir_temp=0.0&humidity=0.0&mbar=79.9
- * &accel_x=-0.01&accel_y=-0.07&accel_z=9.79&gyro_x=0.0&gyro_y=-0.0&gyro_z=-0.0&magnet_x=-0.01&magnet_y=-0.07&magnet_z=9.81
- * &light=91.0&keypress=0.0&alarm=Temperature&distance=1.6&totalDistance=3.79&motion=false
- * 
- * You can add more additional fields to the data model and transmit via any device to the Arduino Tron Drools-jBPM processing.
- */
-
-/**
  * This is the main class for Arduino Tron AI-IoT Drools-jBPM Expert System
  */
 public class RPiIoTTiles {
-
 	RPiIoTTiles rpiiottiles;
 
 	private String base_path = "";
 	private String appVer = "1.01A";
 	private String buildDate = "0304";
 	private boolean is64bitJMV = false;
-	private boolean knowledgeDebug = false;
+	private String knowledgeDebug = "none"; // none, debug
 
+	public static int port = 0;
 	public static String id = ""; // 123456
 	public static String gpio = ""; // create gpio controller
 	public static String name = ""; // IoT_Parking_Kiosk
@@ -83,7 +58,7 @@ public class RPiIoTTiles {
 		getIPAddress();
 		readProperties();
 
-		if (knowledgeDebug) {
+		if (knowledgeDebug.indexOf("none") == -1) {
 			System.out.println("os.name: " + System.getProperty("os.name"));
 			System.out.println("os.arch: " + System.getProperty("os.arch"));
 			is64bitJMV = (System.getProperty("os.arch").indexOf("64") != -1);
@@ -122,9 +97,8 @@ public class RPiIoTTiles {
 				}
 			}
 		});
-		
+
 		StateList stateList = new StateList();
-		
 	}
 
 	public void readProperties() {
@@ -139,6 +113,10 @@ public class RPiIoTTiles {
 			while (enuKeys.hasMoreElements()) {
 				String key = (String) enuKeys.nextElement();
 				String value = properties.getProperty(key);
+				if (key.indexOf("port") != -1) {
+					String portStr = value;
+					port = Integer.parseInt(portStr);
+				}
 				if (key.indexOf("id") != -1) {
 					id = value;
 				}

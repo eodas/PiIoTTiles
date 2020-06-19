@@ -98,4 +98,15 @@ public class AgentConnect {
 			e.printStackTrace();
 		}
 	}
+	
+	// get Agent URL
+	public String agentURL(String agentName) {
+		return agentName;
+//		String agentIP = agentsList.getAgent(agentName);
+//		if ((agentIP == "") || (agentIP.indexOf("0.0.0.0") != -1)) {
+//			agentNotDefined(agentName);
+//		}
+//		return agentIP;
+	}
+
 }

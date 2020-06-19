@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.Date;
 import java.net.MalformedURLException;
 
+import com.piiottiles.util.WebBrowser;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -898,13 +899,13 @@ public class IoTTiles {
 
 	// Raspberry Pi IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
-		String webCamURL = null; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam1");
+		String webCamURL = null; //com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			lblIconLabel_1.setIcon(camera_errorIcon);
 			return;
 		}
-//		WebBrowser wb = new WebBrowser();
-//		wb.url(webCamURL);
+  		WebBrowser wb = new WebBrowser();
+  		wb.url(webCamURL);
 		lblIconLabel_1.setIcon(camera_addIcon);
 	}
 
@@ -912,51 +913,44 @@ public class IoTTiles {
 	public void panel_2Clicked(MouseEvent e) {
 		String mode = com.piiottiles.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
-			gpioController();
-			serverIoTSendPost();
-			
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=*_Arduino_Tron_Active^^^^^^^^^^^^^^^^^^^^^&");
+			serverIoTSendPost("&message=Arduino_Tron_Active");
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=*_Arduino_Tron_Lock_*^^^^^^^^^^^^^^^^^^^^^&");
+			serverIoTSendPost("&message=Arduino_Tron_Lock");
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
 		}
 	}
 
-//	String alert = com.iotbpm.model.StateList.getInstance().getState("Alert");
+//	String alert = com.piiottiles.model.StateList.getInstance().getState("Alert");
 //	if (alert.indexOf("Quite") != -1) {
-//		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//				"/&message=*_Tiles_Alert_Active*^^^^^^^^^^^^^^^^^^^^^&");
-//		com.iotbpm.model.StateList.getInstance().putState("Alert", "Active");
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+//				"/&message=*_Tiles_Alert_Active*&");
+//		com.piiottiles.model.StateList.getInstance().putState("Alert", "Active");
 //		lblBottomLabel_1.setText("Alert Active");
 //		lblIconLabel_1.setIcon(textfield_addIcon);
 //	} else {
-// 		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//				"/&message=*_Tiles_Quite_Alert_*^^^^^^^^^^^^^^^^^^^^^&");
-//		com.iotbpm.model.StateList.getInstance().putState("Alert", "Quite");
+// 		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+//				"/&message=*_Tiles_Quite_Alert_*&");
+//		com.piiottiles.model.StateList.getInstance().putState("Alert", "Quite");
 //		lblBottomLabel_1.setText("Quite Alert");
 //		lblIconLabel_1.setIcon(textfield_deleteIcon);
 //	} 	
 
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		String personal = null; //com.iotbpm.model.StateList.getInstance().getState("Personal");
+		String personal = null; //com.piiottiles.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=**_Employee_Present_*^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Personal", "Present");
+			serverIoTSendPost("&message=Employee_Present");
+  			com.piiottiles.model.StateList.getInstance().putState("Personal", "Present");
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=**_Employee_Occupied*^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Personal", "Occupied");
+			serverIoTSendPost("&message=Employee_Occupied");
+  			com.piiottiles.model.StateList.getInstance().putState("Personal", "Occupied");
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
 		}
@@ -964,17 +958,15 @@ public class IoTTiles {
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		String office = null; // com.iotbpm.model.StateList.getInstance().getState("Office");
+		String office = null; // com.piiottiles.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=**_Office_Day_Mode_**^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Office", "Day");
+			serverIoTSendPost("&message=Office_Day_Mode");
+  			com.piiottiles.model.StateList.getInstance().putState("Office", "Day");
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
-//			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//					"/&message=*_Office_Night_Mode_*^^^^^^^^^^^^^^^^^^^^^&");
-//			com.iotbpm.model.StateList.getInstance().putState("Office", "Night");
+			serverIoTSendPost("&message=Office_Night_Mode");
+  			com.piiottiles.model.StateList.getInstance().putState("Office", "Night");
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
 		}
@@ -1196,19 +1188,18 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-//		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
-//				"/&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
+		serverIoTSendPost("&message=IoT_Tiles_Message");
 	}
 
 	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
-		String doorOpen = null; //com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
+		String doorOpen = com.piiottiles.model.StateList.getInstance().getState("DoorOpen");
 		if (doorOpen.indexOf("Tron") != -1) {
-//			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
+  			com.piiottiles.model.StateList.getInstance().putState("DoorOpen", "Chime");
 			lblBottomLabel_14.setText("Chime Signal");
 			lblIconLabel_14.setIcon(notification_bellIcon);
 		} else {
-//			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Tron");
+  			com.piiottiles.model.StateList.getInstance().putState("DoorOpen", "Tron");
 			lblBottomLabel_14.setText("IoT Display");
 			lblIconLabel_14.setIcon(phone_openIcon);
 		}
@@ -1326,7 +1317,7 @@ public class IoTTiles {
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = ""; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
+		String webCamURL = ""; //com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
@@ -1365,7 +1356,7 @@ public class IoTTiles {
 	public void panel_21Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = ""; //com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
+		String webCamURL = ""; //com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
@@ -1400,7 +1391,6 @@ public class IoTTiles {
 			}
 		}
 	}
-
 
 	/**
 	 *    Raspberry Pi Pinout
@@ -1513,7 +1503,10 @@ public class IoTTiles {
 		led2.blink(1000, 15000);
 	}
 	
-	void serverIoTSendPost() {
+//	gpioController();
+//	serverIoTSendPost();
+	
+	void serverIoTSendPost(String mesg) {
 		String postURL = RPiIoTTiles.server;
 		if ((postURL == "") || (postURL.indexOf("0.0.0.0") != -1)) {
 			System.err.println("Note: IoT Kiosk server " + postURL
@@ -1532,10 +1525,11 @@ public class IoTTiles {
 		postMsg = postMsg + "&process=" + RPiIoTTiles.process;
 		postMsg = postMsg + "&name=" + RPiIoTTiles.name;
 		postMsg = postMsg + "&keypress=1.0";
+		postMsg = postMsg + mesg;
 
-		AgentConnect agentConnect = new AgentConnect();
-		agentConnect.sendPost(postURL, postMsg);
-		// agentConnect.sendGet(postURL, postMsg);
+ 		AgentConnect agentConnect = new AgentConnect();
+  		agentConnect.sendPost(postURL, postMsg);
+		agentConnect.sendGet(postURL, postMsg);
 	}
 	
 	void windowClosingAction(WindowEvent e) {
