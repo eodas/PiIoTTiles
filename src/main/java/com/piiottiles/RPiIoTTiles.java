@@ -14,9 +14,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Properties;
 
-import com.piiottiles.ui.IoTEvents;
 import com.piiottiles.ui.IoTTiles;
-import com.piiottiles.server.AgentConnect;
 import com.piiottiles.model.StateList;
 
 /**
@@ -88,8 +86,7 @@ public class RPiIoTTiles {
 			@Override
 			public void run() {
 				try {
-					IoTEvents iotEvents = new IoTEvents();
-					IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
+					IoTTiles iotTiles = new IoTTiles(exitOnClose);
 					// iotTiles.show(); // .setVisible(true);
 					iotTiles.show(); // setVisible(true);
 				} catch (Exception e) {

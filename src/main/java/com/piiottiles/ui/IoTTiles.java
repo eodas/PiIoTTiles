@@ -23,9 +23,10 @@ import java.net.URL;
 import java.util.Date;
 import java.net.MalformedURLException;
 
-import com.piiottiles.util.WebBrowser;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import com.piiottiles.util.WebBrowser;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -44,7 +45,6 @@ import com.piiottiles.server.AgentConnect;
  */
 public class IoTTiles {
 	private final JFrame frameIoT;
-	private final IoTEvents iotEvents;
 	private static IoTTiles IOTTILES_INSTANCE = null;
 
 	private ImageIcon alarm_bellIcon;
@@ -198,8 +198,7 @@ public class IoTTiles {
     // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
     GpioPinDigitalInput button1;
     
-	public IoTTiles(IoTEvents iotEvents, boolean exitOnClose) {
-		this.iotEvents = iotEvents;
+	public IoTTiles(boolean exitOnClose) {
 		this.frameIoT = buildFrame(exitOnClose);
 		IoTTiles.IOTTILES_INSTANCE = this;
 	}
@@ -899,7 +898,7 @@ public class IoTTiles {
 
 	// Raspberry Pi IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
-		String webCamURL = null; //com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam1");
+		String webCamURL = com.piiottiles.model.StateList.getInstance().getState("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			lblIconLabel_1.setIcon(camera_errorIcon);
 			return;
@@ -913,12 +912,12 @@ public class IoTTiles {
 	public void panel_2Clicked(MouseEvent e) {
 		String mode = com.piiottiles.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
-			serverIoTSendPost("&message=Arduino_Tron_Active");
+			serverIoTSendPost("&message=RPi_Tron_Active");
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
-			serverIoTSendPost("&message=Arduino_Tron_Lock");
+			serverIoTSendPost("&message=RPi_Tron_Lock");
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
@@ -942,7 +941,7 @@ public class IoTTiles {
 
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		String personal = null; //com.piiottiles.model.StateList.getInstance().getState("Personal");
+		String personal = com.piiottiles.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
 			serverIoTSendPost("&message=Employee_Present");
   			com.piiottiles.model.StateList.getInstance().putState("Personal", "Present");
@@ -958,7 +957,7 @@ public class IoTTiles {
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		String office = null; // com.piiottiles.model.StateList.getInstance().getState("Office");
+		String office = com.piiottiles.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
 			serverIoTSendPost("&message=Office_Day_Mode");
   			com.piiottiles.model.StateList.getInstance().putState("Office", "Day");
@@ -1013,7 +1012,7 @@ public class IoTTiles {
 
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100334&timestamp=0&event=DoorLock");
+		serverIoTSendPost("&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -1077,7 +1076,7 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100333&timestamp=0&event=DoorLobby");
+		serverIoTSendPost("&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -1141,7 +1140,7 @@ public class IoTTiles {
 
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100777&keypress=1.0&event=LightModule");
+		serverIoTSendPost("&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
@@ -1253,7 +1252,7 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100555&agentCount=0&alarm=IoTTiles&keypress=1.0");
+		serverIoTSendPost("&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature
