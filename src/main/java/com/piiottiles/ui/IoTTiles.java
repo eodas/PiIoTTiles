@@ -1505,7 +1505,7 @@ public class IoTTiles {
 //	gpioController();
 //	serverIoTSendPost();
 	
-	void serverIoTSendPost(String mesg) {
+	void serverIoTSendPost(String command) {
 		String postURL = RPiIoTTiles.server;
 		if ((postURL == "") || (postURL.indexOf("0.0.0.0") != -1)) {
 			System.err.println("Note: IoT Kiosk server " + postURL
@@ -1520,11 +1520,11 @@ public class IoTTiles {
 		fixtime = (long) (fixtime * 0.001);
 		postMsg = postMsg + "&timestamp=" + Long.toString(fixtime);
 
-		postMsg = postMsg + "&event=" + "YO!"; // Main.USER.getID();
+		//postMsg = postMsg + "&event=" + Main.USER.getID();
 		postMsg = postMsg + "&process=" + RPiIoTTiles.process;
 		postMsg = postMsg + "&name=" + RPiIoTTiles.name;
-		postMsg = postMsg + "&keypress=1.0";
-		postMsg = postMsg + mesg;
+		//postMsg = postMsg + "&keypress=1.0";
+		postMsg = postMsg + command;
 
  		AgentConnect agentConnect = new AgentConnect();
   		agentConnect.sendPost(postURL, postMsg);

@@ -1,5 +1,16 @@
 package com.piiottiles;
 
+/**
+ * Executive Order Corporation we make Things Smart
+ * Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Tron Internet of Things(IoT)
+ *
+ * Raspberry Pi IoT Tron :: Internet of Things Drools-jBPM Expert System using Raspberry Pi Tron AI-IoTBPM Processing
+ * Raspberry Pi IoT Tron Drools-jBPM :: Executive Order Raspberry Pi Tron Sensor AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
+ *
+ * Executive Order Corporation
+ * Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved
+ */
+
 import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,18 +29,7 @@ import com.piiottiles.ui.IoTTiles;
 import com.piiottiles.model.StateList;
 
 /**
- * Executive Order Corporation we make Things Smart
- *
- * Arduino Tron AI-IoT :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoT Processing
- * Arduino Tron Drools-jBPM :: Executive Order Sensor Processor System - Arduino Tron MQTT AI-IoT Client using AI-IoT Drools-jBPM
- * Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
- *
- * Executive Order Corporation
- * Copyright (C) 1978, 2018: Executive Order Corporation, All Rights Reserved
- */
-
-/**
- * This is the main class for Arduino Tron AI-IoT Drools-jBPM Expert System
+ * This is the main class for Reapberry IoT Tron AI-IoT Drools-jBPM Expert System
  */
 public class RPiIoTTiles {
 	RPiIoTTiles rpiiottiles;
@@ -42,10 +42,10 @@ public class RPiIoTTiles {
 
 	public static int port = 0;
 	public static String id = ""; // 123456
-	public static String gpio = ""; // create gpio controller
 	public static String name = ""; // IoT_Parking_Kiosk
 	public static String process = ""; // com.IoTParkingKiosk
 	public static String server = ""; // http://10.0.0.2:5055
+	public static String gpio = ""; // create gpio controller
 	
 	public RPiIoTTiles(String[] args) {
 
