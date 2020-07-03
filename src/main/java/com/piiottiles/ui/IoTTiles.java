@@ -27,6 +27,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.piiottiles.util.WebBrowser;
+import com.piiottiles.RPiIoTTiles;
+import com.piiottiles.server.AgentConnect;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -35,10 +37,8 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinPullResistance;
 // import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
-import com.piiottiles.RPiIoTTiles;
 // import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 // import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import com.piiottiles.server.AgentConnect;
 
 /**
  * Main window implementation for the Raspberry Pi IoT Tiles example
@@ -1505,7 +1505,7 @@ public class IoTTiles {
 //	gpioController();
 //	serverIoTSendPost();
 	
-	void serverIoTSendPost(String command) {
+	void serverIoTSendPost(String postCmd) {
 		String postURL = RPiIoTTiles.server;
 		if ((postURL == "") || (postURL.indexOf("0.0.0.0") != -1)) {
 			System.err.println("Note: IoT Kiosk server " + postURL
@@ -1524,11 +1524,11 @@ public class IoTTiles {
 		postMsg = postMsg + "&process=" + RPiIoTTiles.process;
 		postMsg = postMsg + "&name=" + RPiIoTTiles.name;
 		//postMsg = postMsg + "&keypress=1.0";
-		postMsg = postMsg + command;
+		postMsg = postMsg + postCmd;
 
  		AgentConnect agentConnect = new AgentConnect();
   		agentConnect.sendPost(postURL, postMsg);
-		agentConnect.sendGet(postURL, postMsg);
+		// agentConnect.sendGet(postURL, postMsg);
 	}
 	
 	void windowClosingAction(WindowEvent e) {
@@ -1536,12 +1536,12 @@ public class IoTTiles {
 		// (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
 		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
-					"Note: create gpio controller gpio.shutdown() bypass");
+					"Note: bypass gpio controller gpio.shutdown()");
 		} else {
 			gpio.shutdown(); // <--- implement this method call if you wish to terminate the Pi4J GPIO controller
 		}
 		
-		// IoTBPM.stopIoTServer();
+		RPiIoTTiles.stopIoTServer();
 		// System.exit(0);
 	}
 }

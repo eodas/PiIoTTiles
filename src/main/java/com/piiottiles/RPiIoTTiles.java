@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import com.piiottiles.ui.IoTTiles;
+import com.piiottiles.server.IoTServer;
 import com.piiottiles.model.StateList;
 
 /**
@@ -33,6 +34,7 @@ import com.piiottiles.model.StateList;
  */
 public class RPiIoTTiles {
 	RPiIoTTiles rpiiottiles;
+	private static IoTServer iotServer = null;
 
 	private String base_path = "";
 	private String appVer = "1.01A";
@@ -96,6 +98,7 @@ public class RPiIoTTiles {
 		});
 
 		StateList stateList = new StateList();
+		startIoTServer();
 	}
 
 	public void readProperties() {
@@ -134,6 +137,19 @@ public class RPiIoTTiles {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void startIoTServer() {
+		if (port != 0) {
+			iotServer = new IoTServer(port);
+			iotServer.start();
+		}
+	}
+
+	public static void stopIoTServer() {
+		if (port != 0) {
+			iotServer.killServer();
 		}
 	}
 	
