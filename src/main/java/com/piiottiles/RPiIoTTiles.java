@@ -25,14 +25,19 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Properties;
 
-import com.piiottiles.ui.IoTTiles;
-import com.piiottiles.server.IoTServer;
+import com.piiottiles.model.AgentsList;
 import com.piiottiles.model.StateList;
+import com.piiottiles.server.AgentConnect;
+import com.piiottiles.server.IoTServer;
+import com.piiottiles.iottiles.IoTEvents;
+import com.piiottiles.iottiles.IoTTiles;
 
 /**
  * This is the main class for Reapberry IoT Tron AI-IoT Drools-jBPM Expert System
  */
 public class RPiIoTTiles {
+
+	AgentsList agentsList;
 	RPiIoTTiles rpiiottiles;
 	private static IoTServer iotServer = null;
 
@@ -52,6 +57,7 @@ public class RPiIoTTiles {
 	public RPiIoTTiles(String[] args) {
 
 		this.rpiiottiles = this;
+		agentsList = new AgentsList();
 		System.out.println("Raspberry Pi IoT Tiles :: Internet of Things Drools-jBPM Expert System"
 				+ " using Raspberry Pi Tron AI-IoT Processing -version: " + appVer + " (" + buildDate + ")");
 
@@ -88,7 +94,8 @@ public class RPiIoTTiles {
 			@Override
 			public void run() {
 				try {
-					IoTTiles iotTiles = new IoTTiles(exitOnClose);
+					IoTEvents iotEvents = new IoTEvents("jbpmRules");
+					IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
 					// iotTiles.show(); // .setVisible(true);
 					iotTiles.show(); // setVisible(true);
 				} catch (Exception e) {
@@ -97,6 +104,8 @@ public class RPiIoTTiles {
 			}
 		});
 
+		AgentConnect agentConnect = new AgentConnect(agentsList);
+		
 		StateList stateList = new StateList();
 		startIoTServer();
 	}
@@ -128,6 +137,9 @@ public class RPiIoTTiles {
 				}
 				if (key.indexOf("server") != -1) {
 					server = value;
+				}
+				if (key.indexOf("agentDevice") != -1) {
+					agentsList.parseAgents(value);
 				}
 				if (key.indexOf("gpio") != -1) {
 					gpio = value;
