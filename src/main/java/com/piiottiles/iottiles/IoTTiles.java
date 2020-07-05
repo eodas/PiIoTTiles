@@ -1216,13 +1216,37 @@ public class IoTTiles {
 		JOptionPane.showMessageDialog(null,
 				"Clear IoT Dash Button Sensor process triggered by an Raspberry Pi event message.", "IoT Dash Button",
 				JOptionPane.INFORMATION_MESSAGE);
-		panel_15DashButtonAlert("");
+		lblIconLabel_15.setText("");
 	}
 
 	public void panel_15DashButtonAlert(String alert) {
 		lblIconLabel_15.setText(alert);
+		panel_15Blink();
+		gpioController();
 	}
 
+	public void panel_15Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 6; i++) {
+					if (blink) {
+						panel_15.setBackground(Color.RED);
+					} else {
+						panel_15.setBackground(Color.DARK_GRAY);
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
 	// IoT Sensors
 	public void panel_16Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
