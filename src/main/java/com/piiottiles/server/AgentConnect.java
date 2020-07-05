@@ -5,13 +5,15 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 
+import com.piiottiles.RPiIoTTiles;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
 import com.piiottiles.model.AgentsList;
 
 import java.net.URL;
-
+import java.util.Date;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
@@ -83,9 +85,21 @@ public class AgentConnect {
 			return;
 		}
 
-		String url = agentIP + command;
+		String postMsg = agentIP + "/?id=" + RPiIoTTiles.id;
+
+		java.util.Date date = new Date();
+		long fixtime = date.getTime();
+		fixtime = (long) (fixtime * 0.001);
+		postMsg = postMsg + "&timestamp=" + Long.toString(fixtime);
+
+		//postMsg = postMsg + "&event=" + Main.USER.getID();
+		postMsg = postMsg + "&process=" + RPiIoTTiles.process;
+		postMsg = postMsg + "&name=" + RPiIoTTiles.name;
+		//postMsg = postMsg + "&keypress=1.0";
+		postMsg = postMsg + command;
+		
 		try {
-			URL obj = new URL(url);
+			URL obj = new URL(postMsg);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			// Setting basic post request
@@ -105,7 +119,7 @@ public class AgentConnect {
 
 			int responseCode = con.getResponseCode();
 			if (knowledgeDebug.indexOf("none") == -1) {
-				System.out.println("Send 'POST' request to URL: " + url);
+				System.out.println("Send 'POST' request to URL: " + postMsg);
 				System.out.println("Post Data: " + postJsonData);
 				System.out.println("Response Code: " + responseCode);
 			}

@@ -20,7 +20,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import java.net.URL;
-import java.util.Date;
 import java.net.MalformedURLException;
 
 import java.awt.event.WindowAdapter;
@@ -28,7 +27,6 @@ import java.awt.event.WindowEvent;
 
 import com.piiottiles.util.WebBrowser;
 import com.piiottiles.RPiIoTTiles;
-import com.piiottiles.server.AgentConnect;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -44,7 +42,6 @@ import com.pi4j.io.gpio.RaspiPin;
  */
 public class IoTTiles {
 	private final JFrame frameIoT;
-	private final IoTEvents iotEvents;
 	private static IoTTiles IOTTILES_INSTANCE = null;
 
 	private ImageIcon alarm_bellIcon;
@@ -198,8 +195,7 @@ public class IoTTiles {
     // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
     GpioPinDigitalInput button1;
     
-	public IoTTiles(IoTEvents iotEvents, boolean exitOnClose) {
-		this.iotEvents = iotEvents;
+	public IoTTiles(boolean exitOnClose) {
 		this.frameIoT = buildFrame(exitOnClose);
 		IoTTiles.IOTTILES_INSTANCE = this;
 	}
@@ -914,13 +910,13 @@ public class IoTTiles {
 		String mode = com.piiottiles.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=*_Arduino_Tron_Active");					
+					"&textMessage=Arduino_Tron_Active");					
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=*_Arduino_Tron_Lock");
+					"textMessage=Arduino_Tron_Lock");
   			com.piiottiles.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
@@ -930,13 +926,13 @@ public class IoTTiles {
 //	String alert = com.piiottiles.model.StateList.getInstance().getState("Alert");
 //	if (alert.indexOf("Quite") != -1) {
 //		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-//				"/&message=*_Tiles_Alert_Active");
+//				"&textMessage=*_Tiles_Alert_Active");
 //		com.piiottiles.model.StateList.getInstance().putState("Alert", "Active");
 //		lblBottomLabel_1.setText("Alert Active");
 //		lblIconLabel_1.setIcon(textfield_addIcon);
 //	} else {
 // 		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-//				"/&message=*_Tiles_Quite_Alert");
+//				"&textMessage=*_Tiles_Quite_Alert");
 //		com.piiottiles.model.StateList.getInstance().putState("Alert", "Quite");
 //		lblBottomLabel_1.setText("Quite Alert");
 //		lblIconLabel_1.setIcon(textfield_deleteIcon);
@@ -947,13 +943,13 @@ public class IoTTiles {
 		String personal = com.piiottiles.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=**_Employee_Present");			
+					"&textMessage=Employee_Present");			
   			com.piiottiles.model.StateList.getInstance().putState("Personal", "Present");
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=**_Employee_Occupied");
+					"&textMessage=Employee_Occupied");
   			com.piiottiles.model.StateList.getInstance().putState("Personal", "Occupied");
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
@@ -965,13 +961,13 @@ public class IoTTiles {
 		String office = com.piiottiles.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=**_Office_Day_Mode");
+					"&textMessage=Office_Day_Mode");
   			com.piiottiles.model.StateList.getInstance().putState("Office", "Day");
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
 			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"/&message=*_Office_Night_Mode");
+					"&textMessage=Office_Night_Mode");
   			com.piiottiles.model.StateList.getInstance().putState("Office", "Night");
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
@@ -1019,7 +1015,8 @@ public class IoTTiles {
 
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100334&timestamp=0&event=DoorLock");
+		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -1083,7 +1080,8 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100333&timestamp=0&event=DoorLobby");
+		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -1147,7 +1145,8 @@ public class IoTTiles {
 
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100777&keypress=1.0&event=LightModule");
+		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"&keypress=1.0&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
@@ -1195,7 +1194,7 @@ public class IoTTiles {
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
 		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"/&message=*_IoT_Tiles_Message");		
+				"&textMessage=IoT_Tiles_Message");		
 	}
 
 	// DoorOpen, Chime-Tron IoT
@@ -1260,7 +1259,8 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		iotEvents.IoTDeviceEvent("GET /?id=100555&agentCount=0&alarm=IoTTiles&keypress=1.0");
+		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature

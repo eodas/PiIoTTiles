@@ -29,7 +29,6 @@ import com.piiottiles.model.AgentsList;
 import com.piiottiles.model.StateList;
 import com.piiottiles.server.AgentConnect;
 import com.piiottiles.server.IoTServer;
-import com.piiottiles.iottiles.IoTEvents;
 import com.piiottiles.iottiles.IoTTiles;
 
 /**
@@ -94,8 +93,7 @@ public class RPiIoTTiles {
 			@Override
 			public void run() {
 				try {
-					IoTEvents iotEvents = new IoTEvents("jbpmRules");
-					IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
+					IoTTiles iotTiles = new IoTTiles(exitOnClose);
 					// iotTiles.show(); // .setVisible(true);
 					iotTiles.show(); // setVisible(true);
 				} catch (Exception e) {
