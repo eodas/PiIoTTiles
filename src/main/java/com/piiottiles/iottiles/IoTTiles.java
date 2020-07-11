@@ -26,6 +26,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.piiottiles.util.WebBrowser;
+
 import com.piiottiles.RPiIoTTiles;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -43,7 +44,8 @@ import com.pi4j.io.gpio.RaspiPin;
 public class IoTTiles {
 	private final JFrame frameIoT;
 	private static IoTTiles IOTTILES_INSTANCE = null;
-
+	private boolean alive = true;
+	
 	private ImageIcon alarm_bellIcon;
 	private ImageIcon autosIcon;
 	private ImageIcon biosIcon;
@@ -185,9 +187,6 @@ public class IoTTiles {
 	private JPanel panel_21;
 	private JLabel lblIconLabel_21;
 	private Boolean initpanel_21 = true;
-
-	// These fields are used in the PiIoTTron GPIO.setmode() application
-	private boolean Init_GPIO = false; // Init setup GPIO.setmode() once
 
 	/**
 	 *    Raspberry Pi Pinout
@@ -976,10 +975,38 @@ public class IoTTiles {
   		panel_21Clicked(null);
 
 		gpioController();
-  		
+
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
+			gpioSwitchState();
+		}
+		
 		return frame;
 	}
 
+	public void gpioSwitchState() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (alive) {
+					if (switch1.getState().isHigh()) {
+						panel_7Blink();
+					}
+					if (switch2.getState().isHigh()) {
+						panel_9Blink();
+					}
+					try {
+						Thread.sleep(900L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
 	public void show() {
 		this.frameIoT.setVisible(true);
 	}
@@ -1107,7 +1134,10 @@ public class IoTTiles {
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			led1.blink(500, 5000);
 		}
 		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
@@ -1175,7 +1205,10 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			// continuously blink the led every 1/2 second for 15 seconds
 			led1.blink(500, 15000);
 			// continuously blink the led every 1 second
@@ -1287,7 +1320,10 @@ public class IoTTiles {
 
 	public void panel_12Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			led1.blink(500, 5000);
 		}
 		JOptionPane.showMessageDialog(null,
@@ -1319,7 +1355,10 @@ public class IoTTiles {
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			led2.blink(500, 5000);
 		}
 		JOptionPane.showMessageDialog(null,
@@ -1392,7 +1431,10 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			// continuously blink the led every 1/2 second for 15 seconds
 			led1.blink(500, 15000);
 			// continuously blink the led every 1 second
@@ -1625,7 +1667,7 @@ public class IoTTiles {
 	 * GPIO pin on the Raspberry Pi using the Pi4J library.
 	 */
 	public void gpioController() {
-		if (Init_GPIO == false) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 			return;
@@ -1646,9 +1688,13 @@ public class IoTTiles {
 	}
 
 	void windowClosingAction(WindowEvent e) {
+		alive = false;
 		// stop all GPIO activity/threads
 		// (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
-		if (Init_GPIO == true) {
+		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
 			// Pi4J GPIO controller
 			gpio.shutdown(); // implement this method call if you wish to terminate the Pi4J GPIO controller
 		}
