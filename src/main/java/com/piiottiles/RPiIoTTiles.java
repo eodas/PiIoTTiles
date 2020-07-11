@@ -50,7 +50,7 @@ public class RPiIoTTiles {
 	public static String id = ""; // 123456
 	public static String name = ""; // IoT_Parking_Kiosk
 	public static String process = ""; // com.IoTParkingKiosk
-	public static String server = ""; // http://10.0.0.2:5055
+//	public static String server = ""; // http://10.0.0.2:5055
 	public static String gpio = ""; // create gpio controller
 	
 	public RPiIoTTiles(String[] args) {
@@ -134,7 +134,7 @@ public class RPiIoTTiles {
 					process = value;
 				}
 				if (key.indexOf("server") != -1) {
-					server = value;
+//					server = value;
 				}
 				if (key.indexOf("agentDevice") != -1) {
 					agentsList.parseAgents(value);
