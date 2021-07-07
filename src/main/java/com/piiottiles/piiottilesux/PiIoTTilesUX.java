@@ -1,4 +1,4 @@
-package com.piiottiles.iottiles;
+package com.piiottiles.piiottilesux;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,7 +27,8 @@ import java.awt.event.WindowEvent;
 
 import com.piiottiles.util.WebBrowser;
 
-import com.piiottiles.RPiIoTTiles;
+import com.piiottiles.PiIoTTiles;
+import com.piiottiles.database.DataManager;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -41,9 +42,9 @@ import com.pi4j.io.gpio.RaspiPin;
 /**
  * Main window implementation for the Raspberry Pi IoT Tiles example
  */
-public class IoTTiles {
+public class PiIoTTilesUX {
 	private final JFrame frameIoT;
-	private static IoTTiles IOTTILES_INSTANCE = null;
+	private static PiIoTTilesUX IOTTILES_INSTANCE = null;
 	private boolean alive = true;
 	
 	private ImageIcon alarm_bellIcon;
@@ -283,12 +284,17 @@ public class IoTTiles {
     // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
     GpioPinDigitalInput button1;
     
-	public IoTTiles(boolean exitOnClose) {
+    private PiIoTTiles piiottiles;
+    private DataManager dataManager;
+    
+	public PiIoTTilesUX(PiIoTTiles piiottiles, DataManager dataManager, boolean exitOnClose) {
+		this.piiottiles = piiottiles;
+		this.dataManager =  dataManager;
 		this.frameIoT = buildFrame(exitOnClose);
-		IoTTiles.IOTTILES_INSTANCE = this;
+		PiIoTTilesUX.IOTTILES_INSTANCE = this;
 	}
 
-	public static IoTTiles getInstance() {
+	public static PiIoTTilesUX getInstance() {
 		return IOTTILES_INSTANCE;
 	}
 
@@ -375,7 +381,7 @@ public class IoTTiles {
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_1Clicked(e);
+//				panel_1Clicked(e);
 			}
 		});
 		panel_1.setBackground(Color.BLUE);
@@ -405,7 +411,7 @@ public class IoTTiles {
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_2Clicked(e);
+//				panel_2Clicked(e);
 			}
 		});
 		panel_2.setBackground(Color.MAGENTA);
@@ -436,7 +442,7 @@ public class IoTTiles {
 		panel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_3Clicked(e);
+//				panel_3Clicked(e);
 			}
 		});
 		panel_3.setBackground(new Color(199, 21, 133));
@@ -467,7 +473,7 @@ public class IoTTiles {
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_4Clicked(e);
+//				panel_4Clicked(e);
 			}
 		});
 		panel_4.setBackground(Color.RED);
@@ -769,7 +775,7 @@ public class IoTTiles {
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_14Clicked(e);
+//				panel_14Clicked(e);
 			}
 		});
 		panel_14.setBackground(Color.BLUE);
@@ -976,7 +982,7 @@ public class IoTTiles {
 
 		gpioController();
 
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1011,6 +1017,7 @@ public class IoTTiles {
 		this.frameIoT.setVisible(true);
 	}
 
+/*
 	// Raspberry Pi IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
 		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam1");
@@ -1040,7 +1047,8 @@ public class IoTTiles {
 			lblIconLabel_2.setIcon(computer_keyIcon);
 		}
 	}
-
+*/
+	
 //	String alert = com.piiottiles.model.StateList.getInstance().getState("Alert");
 //	if (alert.indexOf("Quite") != -1) {
 //		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
@@ -1056,6 +1064,7 @@ public class IoTTiles {
 //		lblIconLabel_1.setIcon(textfield_deleteIcon);
 //	} 	
 
+/*	
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
 		String personal = com.piiottiles.model.StateList.getInstance().getState("Personal");
@@ -1091,7 +1100,8 @@ public class IoTTiles {
 			lblIconLabel_4.setIcon(time_deleteIcon);
 		}
 	}
-
+*/
+	
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
@@ -1134,14 +1144,13 @@ public class IoTTiles {
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
 			led1.blink(500, 5000);
 		}
-		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"&event=DoorLock");
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -1205,7 +1214,7 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1214,8 +1223,7 @@ public class IoTTiles {
 			// continuously blink the led every 1 second
 			led2.blink(1000, 15000);
 		}
-		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"&event=DoorLobby");
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -1279,8 +1287,7 @@ public class IoTTiles {
 
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"&keypress=1.0&event=LightModule");
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&keypress=1.0&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
@@ -1320,7 +1327,7 @@ public class IoTTiles {
 
 	public void panel_12Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1334,10 +1341,10 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"&textMessage=IoT_Tiles_Message");		
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&textMessage=IoT_Tiles_Message");		
 	}
 
+/*	
 	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
 		String doorOpen = com.piiottiles.model.StateList.getInstance().getState("DoorOpen");
@@ -1351,11 +1358,12 @@ public class IoTTiles {
 			lblIconLabel_14.setIcon(phone_openIcon);
 		}
 	}
+*/
 
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
 		// continuously blink the led every 1/2 second for 5 seconds
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1431,7 +1439,7 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1440,8 +1448,7 @@ public class IoTTiles {
 			// continuously blink the led every 1 second
 			led2.blink(1000, 15000);
 		}
-		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-				"&agentCount=0&alarm=IoTTiles&keypress=1.0");
+//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature
@@ -1505,7 +1512,7 @@ public class IoTTiles {
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam2");
+/*		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
@@ -1538,13 +1545,13 @@ public class IoTTiles {
 			} else {
 				lblIconLabel_20.setIcon(new ImageIcon(image));
 			}
-		}
+		} */
 	}
 
 	public void panel_21Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam3");
+/*		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
@@ -1577,7 +1584,7 @@ public class IoTTiles {
 			} else {
 				lblIconLabel_21.setIcon(new ImageIcon(image));
 			}
-		}
+		} */
 	}
 
 	/**
@@ -1667,7 +1674,7 @@ public class IoTTiles {
 	 * GPIO pin on the Raspberry Pi using the Pi4J library.
 	 */
 	public void gpioController() {
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 			return;
@@ -1691,7 +1698,7 @@ public class IoTTiles {
 		alive = false;
 		// stop all GPIO activity/threads
 		// (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
-		if ((RPiIoTTiles.gpio == "") || (RPiIoTTiles.gpio.indexOf("none") != -1)) {
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
 			System.err.println(
 					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
 		} else {
@@ -1699,7 +1706,7 @@ public class IoTTiles {
 			gpio.shutdown(); // implement this method call if you wish to terminate the Pi4J GPIO controller
 		}
 		
-		RPiIoTTiles.stopIoTServer();
+		piiottiles.closeManager();
 		// System.exit(0);
 	}
 }

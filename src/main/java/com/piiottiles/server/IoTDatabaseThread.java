@@ -7,13 +7,13 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.regex.Pattern;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class IoTServerThread extends Thread {
+public class IoTDatabaseThread extends Thread {
 	private PrintStream out;
 	private String response = "";
-	private IoTServer ws = null;
+	private IoTDatabase ws = null;
 	private Socket socket = null;
 
 	private String id = "";
@@ -64,7 +64,7 @@ public class IoTServerThread extends Thread {
 
 //	private final Logger logger = LoggerFactory.getLogger(IoTServerThread.class);
 
-	public IoTServerThread(Socket socket, IoTServer ws) {
+	public IoTDatabaseThread(Socket socket, IoTDatabase ws) {
 		this.ws = ws;
 		this.socket = socket;
 		setName("IoT Server Thread");
@@ -278,40 +278,40 @@ public class IoTServerThread extends Thread {
 			System.out.println("100111 - Arduino Tron IoT");
 			break;
 		case "100222": // rule "processID rule for device ID: 100222 - Temperature-Humidity"
-			com.piiottiles.iottiles.IoTTiles.getInstance().panel_5Temp(temp + "' " + humidity + "%");
+			com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_5Temp(temp + "' " + humidity + "%");
 			break;
 		case "100223": // rule "processID rule for device ID: 100223 - Temperature-Humidity"
-			com.piiottiles.iottiles.IoTTiles.getInstance().panel_18Temp(temp + "' " + humidity + "%");
+			com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_18Temp(temp + "' " + humidity + "%");
 			break;
 		case "100333": // rule "processID rule for device ID: 100333 - Door Lock IoT-MCU"
-			String door = com.piiottiles.model.StateList.getInstance().getState("DoorLock");
+/*			String door = com.piiottiles.model.StateList.getInstance().getState("DoorLock");
 			if (door.indexOf("Locked") != -1) {
-				com.piiottiles.iottiles.IoTTiles.getInstance().panel_8DoorUnlocked();
+				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_8DoorUnlocked();
 				com.piiottiles.model.StateList.getInstance().putState("DoorLock", "Unlocked");
 			} else {
-				com.piiottiles.iottiles.IoTTiles.getInstance().panel_8DoorLocked();
+				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_8DoorLocked();
 				com.piiottiles.model.StateList.getInstance().putState("DoorLock", "Locked");
-			}
+			} */
 			break;
 		case "100444": // 100444 - Arduino IoT-SensorTag
 			System.out.println("100444 - Arduino IoT-SensorTag");
 			break;
 		case "100555": // rule "Rules for device ID: 100555 - Arduino Dash Button"
-			com.piiottiles.iottiles.IoTTiles.getInstance().panel_15DashButtonAlert(alarm);
+			com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_15DashButtonAlert(alarm);
 			break;
 		case "100666": // rule "processID rule for device ID: 100666 - Door Open Sensor ESP01"
-			com.piiottiles.iottiles.IoTTiles.getInstance().panel_9DoorOpened();
+			com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_9DoorOpened();
 			break;
 		case "100777": // rule "processID rule for device ID: 100777 - Light Module IoT-MCU"
-			String light = com.piiottiles.model.StateList.getInstance().getState("LightModule");
+/*			String light = com.piiottiles.model.StateList.getInstance().getState("LightModule");
 			if (light.indexOf("On") != -1) {
-				com.piiottiles.iottiles.IoTTiles.getInstance().panel_10LightOff();
+				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_10LightOff();
 				com.piiottiles.model.StateList.getInstance().putState("LightModule", "Off");
 			} else {
-				com.piiottiles.iottiles.IoTTiles.getInstance().panel_10LightOn();
+				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().panel_10LightOn();
 				com.piiottiles.model.StateList.getInstance().putState("LightModule", "On");
 			}
-			break;
+			break; */
 		case "100888": // Rules for device ID: 100888 - Arduino Tron IoT Display
 			System.out.println("Rules for device ID: 100888 - Arduino Tron IoT Display");
 			break;
