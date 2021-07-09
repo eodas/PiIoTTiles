@@ -1,16 +1,23 @@
 package com.piiottiles.server;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.piiottiles.database.DataManager;
+import com.piiottiles.model.Event;
 
 public class IoTDatabase extends Thread {
-	private int currrentConnections = 0;
 	private int totalConnections = 0; // Total number of connection
-	private int maxConnections = 30;
 
 	private boolean alive = true;
+
+	private final String DateFormat = "yyyy-MM-dd HH:mm:ss.ms"; // MM/dd/yyyy HH:mm:ss
+	private String listEventServerTime = "";
+
 	private DataManager dataManager;
 
 	private final Logger logger = LoggerFactory.getLogger(IoTDatabase.class);
@@ -23,29 +30,33 @@ public class IoTDatabase extends Thread {
 	@Override
 	public void run() {
 		while (alive) {
+			listEvents();
 			try {
-				// new IoTServerThread(server.accept(), this, jbpmRules, dataManager);
-				incConnection();
-			} catch (Exception localSocketException) {
-				try {
-					Thread.sleep(50L);
-				} catch (Exception localException1) {
-				}
+				Thread.sleep(1000L);
+			} catch (InterruptedException e) {
+				System.err.format("IOException: %s%n", e);
 			}
 		}
 	}
 
+	public void listEvents() {
+
+		if ((listEventServerTime.equals(null)) || (listEventServerTime.equals(""))) {
+			listEventServerTime = new SimpleDateFormat(DateFormat).format(new Date());
+		} else {
+
+			incConnection();
+			List<Event> events = dataManager.getEventsServerTime(listEventServerTime);
+			for (Event e : events) {
+				listEventServerTime = e.serverTime;
+				new IoTDatabaseUX(dataManager, e);
+			}
+			System.out.print(".");
+		}
+	}
+
 	public synchronized void incConnection() {
-		currrentConnections += 1;
 		totalConnections += 1;
-	}
-
-	public synchronized void decConnection() {
-		currrentConnections -= 1;
-	}
-
-	public synchronized int getCurrentConnection() {
-		return currrentConnections;
 	}
 
 	public synchronized int getTotalConnection() {
@@ -54,6 +65,6 @@ public class IoTDatabase extends Thread {
 
 	public void killServer() {
 		alive = false;
-		System.out.println("Pi IoT Tron Drools-jBPM AI-IoTBPM Server Port, Stopped");
+		System.out.println("Pi IoT Tiles Tron Drools-jBPM AI-IoTBPM Server Stopped");
 	}
 }

@@ -189,88 +189,13 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_21;
 	private Boolean initpanel_21 = true;
 
-	/**
-	 *    Raspberry Pi Pinout
-	 *      3V3  (1)  (2) 5V
-	 *    GPIO2  (3)  (4) 5V
-	 *    GPIO3  (5)  (6) GND
-	 *    GPIO4  (7)  (8) GPIO14
-	 *      GND  (9) (10) GPIO15
-	 *   GPIO17 (11) (12) GPIO18
-	 *   GPIO27 (13) (14) GND
-	 *   GPIO22 (15) (16) GPIO23
-	 *      3V3 (17) (18) GPIO24
-	 *   GPIO10 (19) (20) GND
-	 *    GPIO9 (21) (22) GPIO25
-	 *   GPIO11 (23) (24) GPIO8
-	 *      GND (25) (26) GPIO7
-	 *    GPIO0 (27) (28) GPIO1
-	 *    GPIO5 (29) (30) GND
-	 *    GPIO6 (31) (32) GPIO12
-	 *   GPIO13 (33) (34) GND
-	 *   GPIO19 (35) (36) GPIO16
-	 *   GPIO26 (37) (38) GPIO20
-	 *      GND (39) (40) GPIO21
-	 *
-	 * BerryClip+ - 6 LED - 2 Switch - 1 Buzzer Board
-	 * Hardware Reference
-	 * =============================
-	 * The components are connected to the main Pi GPIO header (P1)
-	 * Component  Pin       BCM    WiringPi
-	 * ---------|-------|--------|---------
-	 * LED 1    - P1-07 - GPIO4  - GPIO. 7
-	 * LED 2    - P1-11 - GPIO17 - GPIO. 0
-	 * LED 3    - P1-15 - GPIO22 - GPIO. 3
-	 * LED 4    - P1-19 - GPIO10
-	 * LED 5    - P1-21 - GPIO9
-	 * LED 6    - P1-23 - GPIO11
-	 * Buzzer   - P1-24 - GPIO8
-	 * Switch 1 - P1-26 - GPIO7
-	 * Swtich 2 - P1-22 - GPIO25
-	 *
-	 * Jam HAT - 6 LED - 2 Switch - 1 Buzzer Board
-	 * The table below shows the pin numbers for BCM, Board and the matching GPIO Zero objects.
-	 * |Component |GPIO.BCM | BOARD  |GPIO Zero object |WiringPi | Notes 
-	 * |----------|---------|--------|-----------------|---------|
-	 * | LED1     | GPIO 5  | Pin 29 | lights_1.red    | GPIO.21 |
-	 * | LED2     | GPIO 6  | Pin 31 | lights_2.red    | GPIO.22 |
-	 * | LED3     | GPIO 12 | Pin 32 | lights_1.yellow | GPIO.26 |
-	 * | LED4     | GPIO 13 | Pin 33 | lights_2.yellow | GPIO.23 |
-	 * | LED5     | GPIO 16 | Pin 36 | lights_1.green  | GPIO.27 |
-	 * | LED6     | GPIO 17 | Pin 11 | lights_2.green  | GPIO. 0 |
-	 * | Button 1 | GPIO 19 | Pin 35 | button_1        | GPIO.24 | Connected to R8/R10 
-	 * | Button 2 | GPIO 18 | Pin 12 | button_2        | GPIO. 1 | Connected to R7/R9 
-	 * | Buzzer   | GPIO 20 | Pin 38 | buzzer          | GPIO.28 |
-	 *
-	 * Wiring Pi - GPIO Interface library for the Raspberry Pi
-	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
-	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
- 	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
-	 * |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |
-	 * |   2 |   8 |   SDA.1 |   IN | 1 |  3 || 4  |   |      | 5v      |     |     |
-	 * |   3 |   9 |   SCL.1 |   IN | 1 |  5 || 6  |   |      | 0v      |     |     |
-	 * |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | IN   | TxD     | 15  | 14  |
-	 * |     |     |      0v |      |   |  9 || 10 | 1 | IN   | RxD     | 16  | 15  |
-	 * |  17 |   0 | GPIO. 0 |  OUT | 0 | 11 || 12 | 0 | OUT  | GPIO. 1 | 1   | 18  |
-	 * |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |
-	 * |  22 |   3 | GPIO. 3 |  OUT | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |
-	 * |     |     |    3.3v |      |   | 17 || 18 | 0 | OUT  | GPIO. 5 | 5   | 24  |
-	 * |  10 |  12 |    MOSI |   IN | 0 | 19 || 20 |   |      | 0v      |     |     |
-	 * |   9 |  13 |    MISO |   IN | 0 | 21 || 22 | 1 | OUT  | GPIO. 6 | 6   | 25  |
-	 * |  11 |  14 |    SCLK |   IN | 0 | 23 || 24 | 1 | IN   | CE0     | 10  | 8   |
-	 * |     |     |      0v |      |   | 25 || 26 | 1 | IN   | CE1     | 11  | 7   |
-	 * |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |
-	 * |   5 |  21 | GPIO.21 |  OUT | 0 | 29 || 30 |   |      | 0v      |     |     |
-	 * |   6 |  22 | GPIO.22 |  OUT | 0 | 31 || 32 | 0 | OUT  | GPIO.26 | 26  | 12  |
-	 * |  13 |  23 | GPIO.23 |  OUT | 0 | 33 || 34 |   |      | 0v      |     |     |
-	 * |  19 |  24 | GPIO.24 |   IN | 0 | 35 || 36 | 1 | OUT  | GPIO.27 | 27  | 16  |
-	 * |  26 |  25 | GPIO.25 |   IN | 0 | 37 || 38 | 0 | IN   | GPIO.28 | 28  | 20  |
-	 * |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |
-	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
-	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
-	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
-	 */
-
+	private String lockMode_state = "";
+	private String doorOpen_state = "";
+	private String personal_state = "";
+	private String office_state = ""; 
+	public static String door_state = "";
+	public static String light_state = ""; 
+	
     GpioController gpio;
 
     // provision gpio pin #01 & #03 as an output pins and blink
@@ -381,7 +306,7 @@ public class PiIoTTilesUX {
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				panel_1Clicked(e);
+  				panel_1Clicked(e);
 			}
 		});
 		panel_1.setBackground(Color.BLUE);
@@ -411,7 +336,7 @@ public class PiIoTTilesUX {
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				panel_2Clicked(e);
+  				panel_2Clicked(e);
 			}
 		});
 		panel_2.setBackground(Color.MAGENTA);
@@ -442,7 +367,7 @@ public class PiIoTTilesUX {
 		panel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				panel_3Clicked(e);
+  				panel_3Clicked(e);
 			}
 		});
 		panel_3.setBackground(new Color(199, 21, 133));
@@ -473,7 +398,7 @@ public class PiIoTTilesUX {
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				panel_4Clicked(e);
+  				panel_4Clicked(e);
 			}
 		});
 		panel_4.setBackground(Color.RED);
@@ -775,7 +700,7 @@ public class PiIoTTilesUX {
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				panel_14Clicked(e);
+  				panel_14Clicked(e);
 			}
 		});
 		panel_14.setBackground(Color.BLUE);
@@ -1017,10 +942,10 @@ public class PiIoTTilesUX {
 		this.frameIoT.setVisible(true);
 	}
 
-/*
+
 	// Raspberry Pi IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
-		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam1");
+		String webCamURL = ""; // com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			lblIconLabel_1.setIcon(camera_errorIcon);
 			return;
@@ -1032,22 +957,19 @@ public class PiIoTTilesUX {
 
 	// Raspberry Pi Mode
 	public void panel_2Clicked(MouseEvent e) {
-		String mode = com.piiottiles.model.StateList.getInstance().getState("Mode");
-		if (mode.indexOf("Lock") != -1) {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"&textMessage=Arduino_Tron_Active");					
-  			com.piiottiles.model.StateList.getInstance().putState("Mode", "Active");
+		if (lockMode_state.indexOf("Lock") != -1) {
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Door Lock IoT-MCU", "&textMessage=Arduino_Tron_Active");					
+			lockMode_state = "Active";
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"textMessage=Arduino_Tron_Lock");
-  			com.piiottiles.model.StateList.getInstance().putState("Mode", "Lock");
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Door Lock IoT-MCU", "textMessage=Arduino_Tron_Lock");
+			lockMode_state = "Lock";
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
 		}
 	}
-*/
+
 	
 //	String alert = com.piiottiles.model.StateList.getInstance().getState("Alert");
 //	if (alert.indexOf("Quite") != -1) {
@@ -1064,20 +986,17 @@ public class PiIoTTilesUX {
 //		lblIconLabel_1.setIcon(textfield_deleteIcon);
 //	} 	
 
-/*	
+	
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		String personal = com.piiottiles.model.StateList.getInstance().getState("Personal");
-		if (personal.indexOf("Occupied") != -1) {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"&textMessage=Employee_Present");			
-  			com.piiottiles.model.StateList.getInstance().putState("Personal", "Present");
+		if (personal_state.indexOf("Occupied") != -1) {
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Employee_Present");			
+			personal_state = "Present";
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"&textMessage=Employee_Occupied");
-  			com.piiottiles.model.StateList.getInstance().putState("Personal", "Occupied");
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Employee_Occupied");
+			personal_state = "Occupied";
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
 		}
@@ -1085,23 +1004,19 @@ public class PiIoTTilesUX {
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		String office = com.piiottiles.model.StateList.getInstance().getState("Office");
-		if (office.indexOf("Night") != -1) {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"&textMessage=Office_Day_Mode");
-  			com.piiottiles.model.StateList.getInstance().putState("Office", "Day");
+		if (office_state.indexOf("Night") != -1) {
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Day_Mode");
+			office_state = "Day";
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
-			com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT",
-					"&textMessage=Office_Night_Mode");
-  			com.piiottiles.model.StateList.getInstance().putState("Office", "Night");
+			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Night_Mode");
+			office_state = "Night";
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
 		}
 	}
-*/
-	
+
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
@@ -1150,7 +1065,7 @@ public class PiIoTTilesUX {
 		} else {
 			led1.blink(500, 5000);
 		}
-//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&event=DoorLock");
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -1223,7 +1138,7 @@ public class PiIoTTilesUX {
 			// continuously blink the led every 1 second
 			led2.blink(1000, 15000);
 		}
-//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&event=DoorLobby");
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -1287,7 +1202,7 @@ public class PiIoTTilesUX {
 
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&keypress=1.0&event=LightModule");
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&keypress=1.0&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
@@ -1341,24 +1256,22 @@ public class PiIoTTilesUX {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&textMessage=IoT_Tiles_Message");		
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=IoT_Tiles_Message");		
 	}
 
-/*	
+	
 	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
-		String doorOpen = com.piiottiles.model.StateList.getInstance().getState("DoorOpen");
-		if (doorOpen.indexOf("Tron") != -1) {
-  			com.piiottiles.model.StateList.getInstance().putState("DoorOpen", "Chime");
+		if (doorOpen_state.indexOf("Tron") != -1) {
+			doorOpen_state = "Chime";
 			lblBottomLabel_14.setText("Chime Signal");
 			lblIconLabel_14.setIcon(notification_bellIcon);
 		} else {
-  			com.piiottiles.model.StateList.getInstance().putState("DoorOpen", "Tron");
+			doorOpen_state = "Tron";
 			lblBottomLabel_14.setText("IoT Display");
 			lblIconLabel_14.setIcon(phone_openIcon);
 		}
 	}
-*/
 
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
@@ -1448,7 +1361,7 @@ public class PiIoTTilesUX {
 			// continuously blink the led every 1 second
 			led2.blink(1000, 15000);
 		}
-//		com.piiottiles.server.AgentConnect.getInstance().sendPost("TronIoT", "&agentCount=0&alarm=IoTTiles&keypress=1.0");
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature
@@ -1512,7 +1425,7 @@ public class PiIoTTilesUX {
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-/*		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam2");
+  		String webCamURL = ""; // com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
@@ -1545,13 +1458,13 @@ public class PiIoTTilesUX {
 			} else {
 				lblIconLabel_20.setIcon(new ImageIcon(image));
 			}
-		} */
+		} 
 	}
 
 	public void panel_21Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
-/*		String webCamURL = com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam3");
+  		String webCamURL = ""; // com.piiottiles.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			try {
 				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
@@ -1584,90 +1497,8 @@ public class PiIoTTilesUX {
 			} else {
 				lblIconLabel_21.setIcon(new ImageIcon(image));
 			}
-		} */
+		} 
 	}
-
-	/**
-	 *    Raspberry Pi Pinout
-	 *      3V3  (1)  (2) 5V
-	 *    GPIO2  (3)  (4) 5V
-	 *    GPIO3  (5)  (6) GND
-	 *    GPIO4  (7)  (8) GPIO14
-	 *      GND  (9) (10) GPIO15
-	 *   GPIO17 (11) (12) GPIO18
-	 *   GPIO27 (13) (14) GND
-	 *   GPIO22 (15) (16) GPIO23
-	 *      3V3 (17) (18) GPIO24
-	 *   GPIO10 (19) (20) GND
-	 *    GPIO9 (21) (22) GPIO25
-	 *   GPIO11 (23) (24) GPIO8
-	 *      GND (25) (26) GPIO7
-	 *    GPIO0 (27) (28) GPIO1
-	 *    GPIO5 (29) (30) GND
-	 *    GPIO6 (31) (32) GPIO12
-	 *   GPIO13 (33) (34) GND
-	 *   GPIO19 (35) (36) GPIO16
-	 *   GPIO26 (37) (38) GPIO20
-	 *      GND (39) (40) GPIO21
-	 *
-	 * BerryClip+ - 6 LED - 2 Switch - 1 Buzzer Board
-	 * Hardware Reference
-	 * =============================
-	 * The components are connected to the main Pi GPIO header (P1)
-	 * Component  Pin       BCM    WiringPi
-	 * ---------|-------|--------|---------
-	 * LED 1    - P1-07 - GPIO4  - GPIO. 7
-	 * LED 2    - P1-11 - GPIO17 - GPIO. 0
-	 * LED 3    - P1-15 - GPIO22 - GPIO. 3
-	 * LED 4    - P1-19 - GPIO10
-	 * LED 5    - P1-21 - GPIO9
-	 * LED 6    - P1-23 - GPIO11
-	 * Buzzer   - P1-24 - GPIO8
-	 * Switch 1 - P1-26 - GPIO7
-	 * Swtich 2 - P1-22 - GPIO25
-	 *
-	 * Jam HAT - 6 LED - 2 Switch - 1 Buzzer Board
-	 * The table below shows the pin numbers for BCM, Board and the matching GPIO Zero objects.
-	 * |Component |GPIO.BCM | BOARD  |GPIO Zero object |WiringPi | Notes 
-	 * |----------|---------|--------|-----------------|---------|
-	 * | LED1     | GPIO 5  | Pin 29 | lights_1.red    | GPIO.21 |
-	 * | LED2     | GPIO 6  | Pin 31 | lights_2.red    | GPIO.22 |
-	 * | LED3     | GPIO 12 | Pin 32 | lights_1.yellow | GPIO.26 |
-	 * | LED4     | GPIO 13 | Pin 33 | lights_2.yellow | GPIO.23 |
-	 * | LED5     | GPIO 16 | Pin 36 | lights_1.green  | GPIO.27 |
-	 * | LED6     | GPIO 17 | Pin 11 | lights_2.green  | GPIO. 0 |
-	 * | Button 1 | GPIO 19 | Pin 35 | button_1        | GPIO.24 | Connected to R8/R10 
-	 * | Button 2 | GPIO 18 | Pin 12 | button_2        | GPIO. 1 | Connected to R7/R9 
-	 * | Buzzer   | GPIO 20 | Pin 38 | buzzer          | GPIO.28 |
-	 *
-	 * Wiring Pi - GPIO Interface library for the Raspberry Pi
-	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
-	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
- 	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
-	 * |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |
-	 * |   2 |   8 |   SDA.1 |   IN | 1 |  3 || 4  |   |      | 5v      |     |     |
-	 * |   3 |   9 |   SCL.1 |   IN | 1 |  5 || 6  |   |      | 0v      |     |     |
-	 * |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | IN   | TxD     | 15  | 14  |
-	 * |     |     |      0v |      |   |  9 || 10 | 1 | IN   | RxD     | 16  | 15  |
-	 * |  17 |   0 | GPIO. 0 |  OUT | 0 | 11 || 12 | 0 | OUT  | GPIO. 1 | 1   | 18  |
-	 * |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |
-	 * |  22 |   3 | GPIO. 3 |  OUT | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |
-	 * |     |     |    3.3v |      |   | 17 || 18 | 0 | OUT  | GPIO. 5 | 5   | 24  |
-	 * |  10 |  12 |    MOSI |   IN | 0 | 19 || 20 |   |      | 0v      |     |     |
-	 * |   9 |  13 |    MISO |   IN | 0 | 21 || 22 | 1 | OUT  | GPIO. 6 | 6   | 25  |
-	 * |  11 |  14 |    SCLK |   IN | 0 | 23 || 24 | 1 | IN   | CE0     | 10  | 8   |
-	 * |     |     |      0v |      |   | 25 || 26 | 1 | IN   | CE1     | 11  | 7   |
-	 * |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |
-	 * |   5 |  21 | GPIO.21 |  OUT | 0 | 29 || 30 |   |      | 0v      |     |     |
-	 * |   6 |  22 | GPIO.22 |  OUT | 0 | 31 || 32 | 0 | OUT  | GPIO.26 | 26  | 12  |
-	 * |  13 |  23 | GPIO.23 |  OUT | 0 | 33 || 34 |   |      | 0v      |     |     |
-	 * |  19 |  24 | GPIO.24 |   IN | 0 | 35 || 36 | 1 | OUT  | GPIO.27 | 27  | 16  |
-	 * |  26 |  25 | GPIO.25 |   IN | 0 | 37 || 38 | 0 | IN   | GPIO.28 | 28  | 20  |
-	 * |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |
-	 * +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
-	 * | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
-	 * +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+
-	 */
     
 	/**
 	 * This code demonstrates how to perform simple blinking LED logic of a
