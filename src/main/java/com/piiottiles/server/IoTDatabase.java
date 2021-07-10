@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.piiottiles.database.DataManager;
+import com.piiottiles.piiottilesux.PiIoTTilesUX;
 import com.piiottiles.model.Event;
 
 public class IoTDatabase extends Thread {
@@ -49,9 +50,9 @@ public class IoTDatabase extends Thread {
 			List<Event> events = dataManager.getEventsServerTime(listEventServerTime);
 			for (Event e : events) {
 				listEventServerTime = e.serverTime;
-				new IoTDatabaseUX(dataManager, e);
+
+				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().processIoTTilesCommand(e);
 			}
-			System.out.print(".");
 		}
 	}
 

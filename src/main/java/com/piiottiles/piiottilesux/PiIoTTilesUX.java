@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -20,15 +21,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.net.MalformedURLException;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.piiottiles.util.WebBrowser;
-
-import com.piiottiles.PiIoTTiles;
+import com.piiottiles.bpmrules.PiIoTTiles;
 import com.piiottiles.database.DataManager;
+import com.piiottiles.model.Event;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -189,12 +191,16 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_21;
 	private Boolean initpanel_21 = true;
 
-	private String lockMode_state = "";
-	private String doorOpen_state = "";
-	private String personal_state = "";
-	private String office_state = ""; 
-	public static String door_state = "";
-	public static String light_state = ""; 
+	// Event state information
+	private String stateLockMode = "";
+	private String stateDoorOpen = "";
+	private String statePersonal = "";
+	private String stateOffice = ""; 
+	private String stateDoor = "";
+	private String stateLight = "";
+	
+	private String LatStr = "38.888160";
+	private String LonStr = "-77.019868";
 	
     GpioController gpio;
 
@@ -957,14 +963,14 @@ public class PiIoTTilesUX {
 
 	// Raspberry Pi Mode
 	public void panel_2Clicked(MouseEvent e) {
-		if (lockMode_state.indexOf("Lock") != -1) {
+		if (stateLockMode.indexOf("Lock") != -1) {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Door Lock IoT-MCU", "&textMessage=Arduino_Tron_Active");					
-			lockMode_state = "Active";
+			stateLockMode = "Active";
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Door Lock IoT-MCU", "textMessage=Arduino_Tron_Lock");
-			lockMode_state = "Lock";
+			stateLockMode = "Lock";
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
 		}
@@ -989,14 +995,14 @@ public class PiIoTTilesUX {
 	
 	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		if (personal_state.indexOf("Occupied") != -1) {
+		if (statePersonal.indexOf("Occupied") != -1) {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Employee_Present");			
-			personal_state = "Present";
+			statePersonal = "Present";
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Employee_Occupied");
-			personal_state = "Occupied";
+			statePersonal = "Occupied";
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
 		}
@@ -1004,14 +1010,14 @@ public class PiIoTTilesUX {
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		if (office_state.indexOf("Night") != -1) {
+		if (stateOffice.indexOf("Night") != -1) {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Day_Mode");
-			office_state = "Day";
+			stateOffice = "Day";
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Night_Mode");
-			office_state = "Night";
+			stateOffice = "Night";
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
 		}
@@ -1256,18 +1262,23 @@ public class PiIoTTilesUX {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=IoT_Tiles_Message");		
+  		//com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=IoT_Tiles_Message");
+
+  		String mapurl = "http://www.google.com/maps?q=";
+		WebBrowser wb = new WebBrowser();
+		mapurl = mapurl + LatStr + "," + LonStr;
+		wb.url(mapurl);
 	}
 
 	
 	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
-		if (doorOpen_state.indexOf("Tron") != -1) {
-			doorOpen_state = "Chime";
+		if (stateDoorOpen.indexOf("Tron") != -1) {
+			stateDoorOpen = "Chime";
 			lblBottomLabel_14.setText("Chime Signal");
 			lblIconLabel_14.setIcon(notification_bellIcon);
 		} else {
-			doorOpen_state = "Tron";
+			stateDoorOpen = "Tron";
 			lblBottomLabel_14.setText("IoT Display");
 			lblIconLabel_14.setIcon(phone_openIcon);
 		}
@@ -1500,6 +1511,97 @@ public class PiIoTTilesUX {
 		} 
 	}
     
+	private void printIoTTilesCommand(Event event) {
+		System.out.println(event.id + ",  " + event.name + ",  " + event.event + ",  " + event.description + ",  "
+				+ event.process + ",  " + event.protocol + ",  " + event.serverTime + ",  " + event.deviceTime + ",  "
+				+ event.fixTime + ",  " + event.outdated + ",  " + event.valid + ",  " + event.lat + ",  " + event.lon + ",  "
+				+ event.altitude + ",  " + event.speed + ",   " + event.course + ",  " + event.address + ",  "
+				+ event.accuracy + ",  " + event.bearing + ",  " + event.network + event.hdop + ",  " + event.cell + ",  "
+				+ event.wifi + ",  " + event.battery + ",  " + event.message + ",  " + event.temp + ",  "
+				+ event.ir_temp + ",  " + event.humidity + ",  " + event.mbar + ",  " + event.accel_x + ",  "
+				+ event.accel_y + ",  " + event.accel_z + ",  " + event.gyro_x + ",  " + event.gyro_y + ",  "
+				+ event.gyro_z + ",  " + event.magnet_x + ",  " + event.magnet_y + ",  " + event.magnet_z + ",  "
+				+ event.light + ",  " + event.keypress + ",  " + event.alarm + ",  " + event.distance + ",  "
+				+ event.totalDistance + ",  " + event.agentCount + ",  " + event.motion);
+	}
+
+	
+	// Marshall IoT command switch
+	public void processIoTTilesCommand(Event event) {
+		DecimalFormat lf = new DecimalFormat("0.000000");
+		printIoTTilesCommand(event);
+		LatStr = lf.format(event.lat);
+		LonStr = lf.format(event.lon);
+		
+		switch (event.id) {
+		case "100111": // 100111 - Arduino Tron IoT
+			System.out.println("100111 - Arduino Tron IoT");
+			break;
+		case "100222": // 100222 - Temperature-Humidity
+			if ((event.temp == 0) || (event.humidity == 0)) {
+				System.out.println("100222 - Temperature or Humidity is 0");
+			} else {
+				panel_5Temp(event.temp + "' " + event.humidity + "%");
+			}
+			break;
+		case "100223": // 100223 - Temperature-Humidity Outside Temperature
+			if ((event.temp == 0) || (event.humidity == 0)) {
+				System.out.println("100222 - Temperature or Humidity is 0");
+			} else {
+				panel_18Temp(event.temp + "' " + event.humidity + "%");
+			}
+			break;
+		case "100333": // 100333 - Door Lock IoT-MCU
+			if (stateDoor.indexOf("Locked") != -1) {
+				panel_8DoorUnlocked();
+				stateDoor = "Unlocked";
+			} else {
+				panel_8DoorLocked();
+				stateDoor = "Locked";
+			}
+			break;
+		case "100444": // 100444 - IoT-TISensorTag GPS Environment
+			System.out.println("100444 - Arduino IoT-SensorTag");
+			break;
+		case "100555": // 100555 - Arduino Dash Button
+			panel_15DashButtonAlert(event.alarm);
+			break;
+		case "100666": // 100666 - Door Open Sensor ESP01
+			panel_9DoorOpened();
+			break;
+		case "100777": // 100777 - Light Module IoT-MCU
+			if (stateLight.indexOf("On") != -1) {
+				panel_10LightOff();
+				stateLight = "Off";
+			} else {
+				getInstance().panel_10LightOn();
+				stateLight = "On";
+			}
+			break;
+		case "100888": // 100888 - Arduino Tron IoT Display
+			System.out.println("100888 - Arduino Tron IoT Display");
+			break;
+		case "100910": // 100910 - Jarvis Pi IoT Tron
+			System.out.println("100910 - Jarvis Pi IoT Tron");
+			break;
+		case "100920": // 100920 - EOSpy IoT GPS Position
+			System.out.println("100920 - EOSpy IoT GPS Position");
+			break;
+		case "100930": // 100930 - EOSpy TISensorTag GPS Environment
+			if ((event.temp == 0) || (event.humidity == 0)) {
+				System.out.println("100222 - Temperature or Humidity is 0");
+			} else {
+				panel_18Temp(event.temp + "' " + event.humidity + "%");
+			}
+			panel_15DashButtonAlert(event.alarm);
+			getInstance().panel_9DoorOpened();
+			System.out.println("100930 - EOSpy TISensorTag GPS Environment");
+			break;
+		default:
+			System.out.println("> Extended Event Token ");
+		}
+	}
+	
 	/**
 	 * This code demonstrates how to perform simple blinking LED logic of a
 	 * GPIO pin on the Raspberry Pi using the Pi4J library.

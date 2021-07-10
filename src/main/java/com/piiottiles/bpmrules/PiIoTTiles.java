@@ -1,4 +1,4 @@
-package com.piiottiles;
+package com.piiottiles.bpmrules;
 
 import java.awt.EventQueue;
 import java.io.BufferedReader;
@@ -34,7 +34,7 @@ import com.piiottiles.server.IoTDatabase;
  */
 
 /**
- * This is the main class for Pi IoT Tron Tron AI-IoT Drools-jBPM Expert System
+ * This is the main class for Pi IoT IoT Tron AI-IoT Drools-jBPM Expert System
  */
 public class PiIoTTiles {
 
