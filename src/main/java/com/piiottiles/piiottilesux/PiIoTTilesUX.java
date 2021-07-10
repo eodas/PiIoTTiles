@@ -1525,14 +1525,19 @@ public class PiIoTTilesUX {
 				+ event.totalDistance + ",  " + event.agentCount + ",  " + event.motion);
 	}
 
-	
 	// Marshall IoT command switch
 	public void processIoTTilesCommand(Event event) {
 		DecimalFormat lf = new DecimalFormat("0.000000");
+		if (event.lat == 0) {
+		} else {
+			LatStr = lf.format(event.lat);
+		}
+		if (event.lon == 0) {
+		} else {
+			LonStr = lf.format(event.lon);
+		}
 		printIoTTilesCommand(event);
-		LatStr = lf.format(event.lat);
-		LonStr = lf.format(event.lon);
-		
+
 		switch (event.id) {
 		case "100111": // 100111 - Arduino Tron IoT
 			System.out.println("100111 - Arduino Tron IoT");
@@ -1560,8 +1565,15 @@ public class PiIoTTilesUX {
 				stateDoor = "Locked";
 			}
 			break;
-		case "100444": // 100444 - IoT-TISensorTag GPS Environment
-			System.out.println("100444 - Arduino IoT-SensorTag");
+		case "100444": // 100444 - TISensorTag GPS Environment - com.TISensorTagEnvironment
+			System.out.println("100444 - TISensorTag GPS Environment - com.TISensorTagEnvironment");
+			if ((event.temp == 0) || (event.humidity == 0)) {
+				System.out.println("100222 - Temperature or Humidity is 0");
+			} else {
+				panel_18Temp(event.temp + "' " + event.humidity + "%");
+			}
+			panel_15DashButtonAlert(event.alarm);
+			getInstance().panel_9DoorOpened();
 			break;
 		case "100555": // 100555 - Arduino Dash Button
 			panel_15DashButtonAlert(event.alarm);
@@ -1581,26 +1593,20 @@ public class PiIoTTilesUX {
 		case "100888": // 100888 - Arduino Tron IoT Display
 			System.out.println("100888 - Arduino Tron IoT Display");
 			break;
-		case "100910": // 100910 - Jarvis Pi IoT Tron
+		case "100910": // 100910 - Jarvis Pi IoT Tron - com.JarvisPiIoTTron
 			System.out.println("100910 - Jarvis Pi IoT Tron");
 			break;
-		case "100920": // 100920 - EOSpy IoT GPS Position
+		case "100920": // 100920 - EOSpy IoT GPS Position - com.GPSPositionTron
 			System.out.println("100920 - EOSpy IoT GPS Position");
 			break;
-		case "100930": // 100930 - EOSpy TISensorTag GPS Environment
-			if ((event.temp == 0) || (event.humidity == 0)) {
-				System.out.println("100222 - Temperature or Humidity is 0");
-			} else {
-				panel_18Temp(event.temp + "' " + event.humidity + "%");
-			}
-			panel_15DashButtonAlert(event.alarm);
-			getInstance().panel_9DoorOpened();
-			System.out.println("100930 - EOSpy TISensorTag GPS Environment");
+		case "100930": // 100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment
+			System.out.println("100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment");
 			break;
 		default:
 			System.out.println("> Extended Event Token ");
 		}
 	}
+
 	
 	/**
 	 * This code demonstrates how to perform simple blinking LED logic of a
