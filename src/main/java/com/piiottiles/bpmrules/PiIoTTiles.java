@@ -17,7 +17,9 @@ import com.piiottiles.config.Config;
 import com.piiottiles.database.DataManager;
 import com.piiottiles.pi4j.Pi4jGPIO;
 import com.piiottiles.piiottilesux.PiIoTTilesUX;
+
 import com.piiottiles.server.IoTDatabase;
+import com.piiottiles.server.IoTCommand;
 
 //import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 //import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -74,7 +76,8 @@ public class PiIoTTiles {
 	public void init(final boolean exitOnClose) {
 		startPi4jGPIO(); // Implementation for the Raspberry Pi4j GPIO example
 		startIoTDatabase(dataManager);
-
+		IoTCommand iotCommand = new IoTCommand(dataManager, knowledgeDebug);
+		
 		// set up and show main window
 		Locale.setDefault(Locale.US);
 

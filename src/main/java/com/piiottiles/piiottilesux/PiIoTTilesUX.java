@@ -104,8 +104,9 @@ public class PiIoTTilesUX {
 	private ImageIcon weather_snowIcon;
 	private ImageIcon weather_sunIcon;
 
-	private ImageIcon web_conciergeIcon;
-
+	private ImageIcon conciergeIcon;
+	private ImageIcon blockattack;
+	
 	private JPanel panel_1;
 	private JLabel lblBottomLabel_1;
 	private JLabel lblIconLabel_1;
@@ -323,8 +324,9 @@ public class PiIoTTilesUX {
 		weather_snowIcon = new ImageIcon("icons" + File.separator + "weather_snow.png");
 		weather_sunIcon = new ImageIcon("icons" + File.separator + "weather_sun.png");
 
-		web_conciergeIcon = new ImageIcon("icons" + File.separator + "web_concierge.png");
-
+		conciergeIcon = new ImageIcon("icons" + File.separator + "concierge.png");
+		blockattack = new ImageIcon("icons" + File.separator + "blockattack.png");
+		
 		panel_1 = new JPanel();
 		panel_1.setToolTipText(
 				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Tron Things, like the Raspberry Pi Tron IoT Web Camera.");
@@ -847,12 +849,12 @@ public class PiIoTTilesUX {
 		frame.getContentPane().add(panel_15);
 		panel_15.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_15 = new JLabel("Dash Button");
+		JLabel lblTopLabel_15 = new JLabel("IoT Dash Button");
 		lblTopLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
 
-		lblBottomLabel_15 = new JLabel("IoT Chime");
+		lblBottomLabel_15 = new JLabel("IoT Tron Device");
 		lblBottomLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblBottomLabel_15, BorderLayout.SOUTH);
@@ -861,7 +863,7 @@ public class PiIoTTilesUX {
 		lblIconLabel_15.setForeground(Color.WHITE);
 		lblIconLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_15.add(lblIconLabel_15, BorderLayout.CENTER);
-		lblIconLabel_15.setIcon(web_conciergeIcon);
+		lblIconLabel_15.setIcon(blockattack);
 
 		panel_16 = new JPanel();
 		panel_16.setToolTipText(
@@ -921,7 +923,7 @@ public class PiIoTTilesUX {
 		lblIconLabel_17.setForeground(Color.WHITE);
 		lblIconLabel_17.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_17.add(lblIconLabel_17, BorderLayout.CENTER);
-		lblIconLabel_17.setIcon(web_conciergeIcon);
+		lblIconLabel_17.setIcon(conciergeIcon);
 
 		panel_18 = new JPanel();
 		panel_18.setToolTipText(
@@ -1692,18 +1694,38 @@ public class PiIoTTilesUX {
 		}
 		
 		if ((event.temp == 0) || (event.humidity == 0)) {
-			System.out.println("Pi IoT Tron Temperature or Humidity is 0");
 		} else {
 			panel_5Temp(event.temp + "' " + event.humidity + "%");
 		}
 
 		if ((event.alarm == null) || (event.alarm.isEmpty())) {
-			System.out.println(">>> event.alarm == null"); 
 		} else {
   			panel_15Alert(event.alarm);
-
 		}
 
+		if (event.keypress == 0) { } else {
+			boolean keystate = false;
+			if (event.keypress == 1) {
+				panel_15Alert("Key_1");
+				keystate = true;
+			}
+			if (event.keypress == 2) {
+				panel_15Alert("Key_2");
+				keystate = true;
+			}
+			if (event.keypress == 3) {
+				panel_15Alert("Reed");
+				keystate = true;
+			}
+			if (event.keypress == 4) {
+				panel_15Alert("Prox");
+				keystate = true;
+			}
+			if (keystate = false) {
+				panel_15Alert("Key_" + event.keypress);
+			}
+		}
+		
 		if (event.light == 0) { } else {
 			String iStr = lf.format(event.light);
   			panel_19Alert(iStr.substring(0, 6));
