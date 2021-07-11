@@ -73,6 +73,8 @@ public class PiIoTTilesUX {
 	private ImageIcon informationIcon;
 	private ImageIcon keyIcon;
 	private ImageIcon key_addIcon;
+	private ImageIcon motionIcon;
+	private ImageIcon map_compass;
 
 	private ImageIcon lightbulbIcon;
 	private ImageIcon lightbulb_addIcon;
@@ -142,6 +144,15 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_9;
 
 	private JPanel panel_10;
+    private JLabel lblTopLabel_10_1;
+    private JLabel lblTopLabel_10_2;
+    private JLabel lblTopLabel_10_3;
+    private JLabel lblTopLabel_10_4;
+    private JLabel lblTopLabel_10_5;
+    private JLabel lblTopLabel_10_6;
+    private JLabel lblTopLabel_10_7;
+    private JLabel lblTopLabel_10_8;
+    private JLabel lblTopLabel_10_9;
 	private JLabel lblBottomLabel_10;
 	private JLabel lblIconLabel_10;
 
@@ -155,6 +166,12 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_12;
 
 	private JPanel panel_13;
+    private JLabel lblTopLabel_13;
+    private JLabel lblTopLabel_13_1;
+    private JLabel lblTopLabel_13_2;
+    private JLabel lblTopLabel_13_3;
+    private JLabel lblTopLabel_13_4;
+    private JLabel lblTopLabel_13_5;
 	private JLabel lblBottomLabel_13;
 	private JLabel lblIconLabel_13;
 
@@ -274,7 +291,9 @@ public class PiIoTTilesUX {
 		informationIcon = new ImageIcon("icons" + File.separator + "information.png");
 		keyIcon = new ImageIcon("icons" + File.separator + "key.png");
 		key_addIcon = new ImageIcon("icons" + File.separator + "key_add.png");
-
+		motionIcon = new ImageIcon("icons" + File.separator + "motion.png");
+		map_compass = new ImageIcon("icons" + File.separator + "map_compass.png");
+		
 		lightbulbIcon = new ImageIcon("icons" + File.separator + "lightbulb.png");
 		lightbulb_addIcon = new ImageIcon("icons" + File.separator + "lightbulb_add.png");
 		lightbulb_deleteIcon = new ImageIcon("icons" + File.separator + "lightbulb_delete.png");
@@ -592,23 +611,74 @@ public class PiIoTTilesUX {
 		panel_10.setBackground(new Color(0, 128, 0));
 		panel_10.setBounds(845, 110, 100, 205);
 		frame.getContentPane().add(panel_10);
-		panel_10.setLayout(new BorderLayout(0, 0));
+		panel_10.setLayout(null);
 
-		JLabel lblTopLabel_10 = new JLabel("Device Control");
-		lblTopLabel_10.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10.setForeground(Color.WHITE);
-		panel_10.add(lblTopLabel_10, BorderLayout.NORTH);
+		lblTopLabel_10_1 = new JLabel("acel_x=");
+		lblTopLabel_10_1.setBounds(0, 0, 100, 14);
+		lblTopLabel_10_1.setForeground(Color.WHITE);
+		lblTopLabel_10_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_10.add(lblTopLabel_10_1);
+		
+		lblTopLabel_10_2 = new JLabel("acel_y=");
+		lblTopLabel_10_2.setBounds(0, 14, 100, 14);
+		lblTopLabel_10_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_2.setForeground(Color.WHITE);
+		panel_10.add(lblTopLabel_10_2);
+		
+		lblTopLabel_10_3 = new JLabel("acel_z=");
+		lblTopLabel_10_3.setForeground(Color.WHITE);
+		lblTopLabel_10_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_3.setBounds(0, 28, 100, 14);
+		panel_10.add(lblTopLabel_10_3);
+		
+		lblTopLabel_10_4 = new JLabel("gyro_x=");
+		lblTopLabel_10_4.setForeground(Color.WHITE);
+		lblTopLabel_10_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_4.setBounds(0, 42, 100, 14);
+		panel_10.add(lblTopLabel_10_4);
 
-		lblBottomLabel_10 = new JLabel("Light Off");
+		lblTopLabel_10_5 = new JLabel("gyro_y=");
+		lblTopLabel_10_5.setForeground(Color.WHITE);
+		lblTopLabel_10_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_5.setBounds(0, 56, 100, 14);
+		panel_10.add(lblTopLabel_10_5);
+
+		lblTopLabel_10_6 = new JLabel("gyro_z=");
+		lblTopLabel_10_6.setForeground(Color.WHITE);
+		lblTopLabel_10_6.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_6.setBounds(0, 70, 100, 14);
+		panel_10.add(lblTopLabel_10_6);
+
+		lblTopLabel_10_7 = new JLabel("mag_x=");
+		lblTopLabel_10_7.setForeground(Color.WHITE);
+		lblTopLabel_10_7.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_7.setBounds(0, 84, 100, 14);
+		panel_10.add(lblTopLabel_10_7);
+
+		lblTopLabel_10_8 = new JLabel("mag_y=");
+		lblTopLabel_10_8.setForeground(Color.WHITE);
+		lblTopLabel_10_8.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_8.setBounds(0, 98, 100, 14);
+		panel_10.add(lblTopLabel_10_8);
+
+		lblTopLabel_10_9 = new JLabel("mag_z=");
+		lblTopLabel_10_9.setForeground(Color.WHITE);
+		lblTopLabel_10_9.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10_9.setBounds(0, 112, 100, 14);
+		panel_10.add(lblTopLabel_10_9);
+		
+		lblBottomLabel_10 = new JLabel("Motion Data");
+		lblBottomLabel_10.setBounds(0, 191, 100, 14);
 		lblBottomLabel_10.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_10.setForeground(Color.WHITE);
-		panel_10.add(lblBottomLabel_10, BorderLayout.SOUTH);
+		panel_10.add(lblBottomLabel_10);
 
 		lblIconLabel_10 = new JLabel("");
+		lblIconLabel_10.setBounds(0, 126, 100, 65);
 		lblIconLabel_10.setForeground(Color.WHITE);
 		lblIconLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_10.add(lblIconLabel_10, BorderLayout.CENTER);
-		lblIconLabel_10.setIcon(lightbulb_offIcon);
+		panel_10.add(lblIconLabel_10);
+		lblIconLabel_10.setIcon(motionIcon);
 
 		panel_11 = new JPanel();
 		panel_11.setToolTipText(
@@ -682,23 +752,56 @@ public class PiIoTTilesUX {
 		panel_13.setBackground(new Color(0, 128, 0));
 		panel_13.setBounds(215, 215, 205, 100);
 		frame.getContentPane().add(panel_13);
-		panel_13.setLayout(new BorderLayout(0, 0));
+		panel_13.setLayout(null);
 
-		JLabel lblTopLabel_13 = new JLabel("Raspberry Pi IoT Display");
-		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13 = new JLabel("Pi IoT Tron GPS Position");
 		lblTopLabel_13.setForeground(Color.WHITE);
-		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
+		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13.setBounds(0, 0, 205, 14);
+		panel_13.add(lblTopLabel_13);
 
-		lblBottomLabel_13 = new JLabel("Send Tron IoT Message");
+		lblTopLabel_13_1 = new JLabel("lat=");
+		lblTopLabel_13_1.setBounds(0, 14, 153, 14);
+		lblTopLabel_13_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13_1.setForeground(Color.WHITE);
+		panel_13.add(lblTopLabel_13_1);
+		
+		lblTopLabel_13_2 = new JLabel("lon=");
+		lblTopLabel_13_2.setForeground(Color.WHITE);
+		lblTopLabel_13_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13_2.setBounds(0, 28, 153, 14);
+		panel_13.add(lblTopLabel_13_2);
+		
+		lblTopLabel_13_3 = new JLabel("alt=");
+		lblTopLabel_13_3.setForeground(Color.WHITE);
+		lblTopLabel_13_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13_3.setBounds(0, 42, 153, 14);
+		panel_13.add(lblTopLabel_13_3);
+		
+		lblTopLabel_13_4 = new JLabel("speed=");
+		lblTopLabel_13_4.setForeground(Color.WHITE);
+		lblTopLabel_13_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13_4.setBounds(0, 56, 153, 14);
+		panel_13.add(lblTopLabel_13_4);
+		
+		lblTopLabel_13_5 = new JLabel("bearing=");
+		lblTopLabel_13_5.setForeground(Color.WHITE);
+		lblTopLabel_13_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_13_5.setBounds(0, 70, 153, 14);
+		panel_13.add(lblTopLabel_13_5);
+		
+		lblBottomLabel_13 = new JLabel("Waiting GPS Position Update");
+		lblBottomLabel_13.setBounds(0, 86, 205, 14);
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
-		panel_13.add(lblBottomLabel_13, BorderLayout.SOUTH);
+		panel_13.add(lblBottomLabel_13);
 
 		lblIconLabel_13 = new JLabel("");
+		lblIconLabel_13.setBounds(153, 14, 52, 72);
 		lblIconLabel_13.setForeground(Color.WHITE);
 		lblIconLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_13.add(lblIconLabel_13, BorderLayout.CENTER);
-		lblIconLabel_13.setIcon(phone_openIcon);
+		panel_13.add(lblIconLabel_13);
+		lblIconLabel_13.setIcon(map_compass);
 
 		panel_14 = new JPanel();
 		panel_14.setToolTipText(
@@ -865,12 +968,12 @@ public class PiIoTTilesUX {
 		frame.getContentPane().add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_19 = new JLabel("Lobby Light");
+		JLabel lblTopLabel_19 = new JLabel("IoT Tron Light");
 		lblTopLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblTopLabel_19, BorderLayout.NORTH);
 
-		lblBottomLabel_19 = new JLabel("Relay Module");
+		lblBottomLabel_19 = new JLabel("Luxometer Data");
 		lblBottomLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblBottomLabel_19, BorderLayout.SOUTH);
@@ -1045,7 +1148,7 @@ public class PiIoTTilesUX {
 			@Override
 			public void run() {
 				boolean blink = true;
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 6; i++) {
 					if (blink) {
 						panel_5.setBackground(new Color(0, 191, 255));
 					} else {
@@ -1053,7 +1156,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(500L);
+						Thread.sleep(250L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1124,7 +1227,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(500L);
+						Thread.sleep(250L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1197,7 +1300,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(500L);
+						Thread.sleep(250L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1262,8 +1365,6 @@ public class PiIoTTilesUX {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-  		//com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=IoT_Tiles_Message");
-
   		String mapurl = "http://www.google.com/maps?q=";
 		WebBrowser wb = new WebBrowser();
 		mapurl = mapurl + LatStr + "," + LonStr;
@@ -1299,7 +1400,7 @@ public class PiIoTTilesUX {
 		lblIconLabel_15.setText("");
 	}
 
-	public void panel_15DashButtonAlert(String alert) {
+	public void panel_15Alert(String alert) {
 		lblIconLabel_15.setText(alert);
 		panel_15Blink();
 		gpioController();
@@ -1332,6 +1433,7 @@ public class PiIoTTilesUX {
 		JOptionPane.showMessageDialog(null,
 				"This is the default IoT Sensors jBPM Automation extended process. Use Drools Rules to start a specific IoT jBPM Automation process for this IoT sensor event.",
 				"IoT Sensors Extended Event", JOptionPane.INFORMATION_MESSAGE);
+  		com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=IoT_Tiles_Message");
 	}
 
 	public void panel_16IoTSensors(String IoT_Sensors) {
@@ -1424,15 +1526,52 @@ public class PiIoTTilesUX {
 		}).start();
 	}
 	
-	// Device Control
+	// Luxometer Data IoT Tron Light
 	public void panel_19Clicked(MouseEvent e) {
+		// continuously blink the led every 1/2 second for 5 seconds
+		if ((PiIoTTiles.gpio == "") || (PiIoTTiles.gpio.indexOf("none") != -1)) {
+			System.err.println(
+					"Note: create gpio controller e.g. gpio=GPIO_01 not defined in iotbpm.properties file.");
+		} else {
+			led2.blink(500, 5000);
+		}
 		lblIconLabel_19.setIcon(lightbulb_addIcon);
 		JOptionPane.showMessageDialog(null,
 				"The little IoT ESP-01S Relay Expansion Module is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.",
 				"IoT ESP-01S WiFi Relay Expansion Module Board", JOptionPane.INFORMATION_MESSAGE);
 		lblIconLabel_19.setIcon(lightbulb_offIcon);
+		lblIconLabel_19.setText("");
 	}
 
+	public void panel_19Alert(String message) {
+		lblIconLabel_19.setText(message);
+		panel_19Blink();
+		gpioController();
+	}
+
+	public void panel_19Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 6; i++) {
+					if (blink) {
+						panel_19.setBackground(Color.RED);
+					} else {
+						panel_19.setBackground(new Color(0, 191, 255));
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
+	//	
 	public void panel_20Clicked(MouseEvent e) {
 		URL camURL = null;
 		BufferedImage image = null;
@@ -1527,16 +1666,80 @@ public class PiIoTTilesUX {
 
 	// Marshall IoT command switch
 	public void processIoTTilesCommand(Event event) {
+		printIoTTilesCommand(event);
+
 		DecimalFormat lf = new DecimalFormat("0.000000");
-		if (event.lat == 0) {
+		if ((event.lat == 0) || (event.lon == 0)) {
+			lblBottomLabel_13.setText("Waiting GPS Position Update");			
 		} else {
 			LatStr = lf.format(event.lat);
-		}
-		if (event.lon == 0) {
-		} else {
 			LonStr = lf.format(event.lon);
+			lblBottomLabel_13.setText("Pi IoT Tron Live GPS Position Update");
+			lblTopLabel_13_1.setText("lat=" + LatStr);
+			lblTopLabel_13_2.setText("lon=" + LonStr);
 		}
-		printIoTTilesCommand(event);
+		if (event.altitude == 0) { } else {
+			String iStr = lf.format(event.altitude);
+			lblTopLabel_13_3.setText("alt=" + iStr.substring(0, 6));
+		}
+		if (event.speed == 0) { } else {
+			String iStr = lf.format(event.speed);
+			lblTopLabel_13_4.setText("speed=" + iStr.substring(0, 6));
+		}
+		if (event.bearing == 0) { } else {
+			String iStr = lf.format(event.bearing);
+			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
+		}
+		
+		if ((event.temp == 0) || (event.humidity == 0)) {
+			System.out.println("Pi IoT Tron Temperature or Humidity is 0");
+		} else {
+			panel_5Temp(event.temp + "' " + event.humidity + "%");
+		}
+
+		if ((event.alarm == null) || (event.alarm.isEmpty())) {
+			System.out.println(">>> event.alarm == null"); 
+		} else {
+  			panel_15Alert(event.alarm);
+
+		}
+
+		if (event.light == 0) { } else {
+			String iStr = lf.format(event.light);
+  			panel_19Alert(iStr.substring(0, 6));
+		}
+		
+//		getInstance().panel_9DoorOpened();
+		
+		if (event.accel_x == 0) { } else {
+			lblTopLabel_10_1.setText("acel_x=" + event.accel_x);
+		}
+		if (event.accel_y == 0) { } else {
+			lblTopLabel_10_2.setText("acel_y=" + event.accel_y);
+		}
+		if (event.accel_z == 0) { } else {
+			lblTopLabel_10_3.setText("acel_z=" + event.accel_z);
+		}
+
+		if (event.gyro_x == 0) { } else {
+			lblTopLabel_10_4.setText("gyro_x=" + event.gyro_x);
+		}
+		if (event.gyro_y == 0) { } else {
+			lblTopLabel_10_5.setText("gyro_y=" + event.gyro_y);
+		}
+		if (event.gyro_z == 0) { } else {
+			lblTopLabel_10_6.setText("gyro_z=" + event.gyro_z);
+		}
+		
+		if (event.magnet_x == 0) { } else {
+			lblTopLabel_10_7.setText("mag_x=" + event.magnet_x);
+		}
+		if (event.magnet_y == 0) { } else {
+			lblTopLabel_10_8.setText("mag_y=" + event.magnet_y);
+		}
+		if (event.magnet_z == 0) { } else {
+			lblTopLabel_10_9.setText("mag_z=" + event.magnet_z);
+		}
 
 		switch (event.id) {
 		case "100111": // 100111 - Arduino Tron IoT
@@ -1567,16 +1770,8 @@ public class PiIoTTilesUX {
 			break;
 		case "100444": // 100444 - TISensorTag GPS Environment - com.TISensorTagEnvironment
 			System.out.println("100444 - TISensorTag GPS Environment - com.TISensorTagEnvironment");
-			if ((event.temp == 0) || (event.humidity == 0)) {
-				System.out.println("100222 - Temperature or Humidity is 0");
-			} else {
-				panel_18Temp(event.temp + "' " + event.humidity + "%");
-			}
-			panel_15DashButtonAlert(event.alarm);
-			getInstance().panel_9DoorOpened();
 			break;
 		case "100555": // 100555 - Arduino Dash Button
-			panel_15DashButtonAlert(event.alarm);
 			break;
 		case "100666": // 100666 - Door Open Sensor ESP01
 			panel_9DoorOpened();
