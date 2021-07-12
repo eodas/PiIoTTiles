@@ -1693,10 +1693,10 @@ public class PiIoTTilesUX {
 			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
 		}
 		
-		if ((event.temp == 0) || (event.humidity == 0)) {
-		} else {
+//		if ((event.temp == 0) || (event.humidity == 0)) {
+//		} else {
 			panel_5Temp(event.temp + "' " + event.humidity + "%");
-		}
+//		}
 
 		if ((event.alarm == null) || (event.alarm.isEmpty())) {
 		} else {
