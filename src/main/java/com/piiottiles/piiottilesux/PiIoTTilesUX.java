@@ -1158,7 +1158,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(250L);
+						Thread.sleep(500L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1229,7 +1229,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(250L);
+						Thread.sleep(500L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1302,7 +1302,7 @@ public class PiIoTTilesUX {
 					}
 					blink = !blink;
 					try {
-						Thread.sleep(250L);
+						Thread.sleep(500L);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -1511,7 +1511,7 @@ public class PiIoTTilesUX {
 			@Override
 			public void run() {
 				boolean blink = true;
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 6; i++) {
 					if (blink) {
 						panel_18.setBackground(new Color(0, 191, 255));
 					} else {
