@@ -1819,8 +1819,11 @@ public class PiIoTTilesUX {
 		case "100930": // 100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment
 			System.out.println("100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment");
 			break;
+		case "100940": // 100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment
+			System.out.println("100940 - M5Atom LED Arduino Tron M5Stack - com.M5AtomEnvironment");
+			break;
 		default:
-			System.out.println("> Extended Event Token ");
+			System.out.println("> Pi IoT Tiles UX Unknown Device ID = " + event.id);
 		}
 	}
 

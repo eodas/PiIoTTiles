@@ -859,7 +859,7 @@ public class Event {
 				setMotion(Boolean.parseBoolean(value));
 				break;
 			default:
-				System.out.println("> Extended Event Token " + key + "=" + value);
+				System.out.println("> Extended Event Token " + key + "=" + value + "|");
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
