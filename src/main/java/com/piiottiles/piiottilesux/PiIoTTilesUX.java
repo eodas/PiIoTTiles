@@ -38,6 +38,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinPullResistance;
 // import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import javax.swing.JTextArea;
 // import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 // import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
@@ -120,6 +121,7 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_3;
 
 	private JPanel panel_4;
+	private JTextArea lblTopText_4;
 	private JLabel lblBottomLabel_4;
 	private JLabel lblIconLabel_4;
 
@@ -145,6 +147,7 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_9;
 
 	private JPanel panel_10;
+    private JLabel lblTopLabel_10;
     private JLabel lblTopLabel_10_1;
     private JLabel lblTopLabel_10_2;
     private JLabel lblTopLabel_10_3;
@@ -181,6 +184,7 @@ public class PiIoTTilesUX {
 	private JLabel lblIconLabel_14;
 
 	private JPanel panel_15;
+    private JLabel lblTopLabel_15_1;
 	private JLabel lblBottomLabel_15;
 	private JLabel lblIconLabel_15;
 
@@ -213,7 +217,7 @@ public class PiIoTTilesUX {
 	private String stateLockMode = "";
 	private String stateDoorOpen = "";
 	private String statePersonal = "";
-	private String stateOffice = ""; 
+	private String stateMonitor = "Update"; 
 	private String stateDoor = "";
 	private String stateLight = "";
 	
@@ -431,23 +435,41 @@ public class PiIoTTilesUX {
 		panel_4.setBackground(Color.RED);
 		panel_4.setBounds(740, 5, 205, 100);
 		frame.getContentPane().add(panel_4);
-		panel_4.setLayout(new BorderLayout(0, 0));
+		panel_4.setLayout(null);
 
-		JLabel lblTopLabel_4 = new JLabel("Smart Office Monitor");
+		JLabel lblTopLabel_4 = new JLabel("Smart IoT Tron Message Monitor");
+		lblTopLabel_4.setBounds(0, 0, 205, 14);
 		lblTopLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_4.setForeground(Color.WHITE);
-		panel_4.add(lblTopLabel_4, BorderLayout.NORTH);
+		panel_4.add(lblTopLabel_4);
+		
+		lblTopText_4 = new JTextArea();
+		lblTopText_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+  				panel_4Clicked(e);
+			}
+		});
+		lblTopText_4.setText("");
+		lblTopText_4.setLineWrap(true);
+		lblTopText_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopText_4.setForeground(Color.WHITE);
+		lblTopText_4.setBackground(Color.RED);
+		lblTopText_4.setBounds(0, 14, 155, 75);
+		panel_4.add(lblTopText_4);
 
-		lblBottomLabel_4 = new JLabel("Office Day");
+		lblBottomLabel_4 = new JLabel("Update Tile");
+		lblBottomLabel_4.setBounds(0, 86, 205, 14);
 		lblBottomLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_4.setForeground(Color.WHITE);
-		panel_4.add(lblBottomLabel_4, BorderLayout.SOUTH);
+		panel_4.add(lblBottomLabel_4);
 
 		lblIconLabel_4 = new JLabel("");
+		lblIconLabel_4.setBounds(153, 14, 52, 64);
 		lblIconLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblIconLabel_4.setForeground(Color.WHITE);
 		lblIconLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_4.add(lblIconLabel_4, BorderLayout.CENTER);
+		panel_4.add(lblIconLabel_4);
 		lblIconLabel_4.setIcon(time_addIcon);
 
 		panel_5 = new JPanel();
@@ -615,14 +637,20 @@ public class PiIoTTilesUX {
 		frame.getContentPane().add(panel_10);
 		panel_10.setLayout(null);
 
+		lblTopLabel_10 = new JLabel("Device Motion");
+		lblTopLabel_10.setForeground(Color.WHITE);
+		lblTopLabel_10.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_10.setBounds(0, 0, 100, 14);
+		panel_10.add(lblTopLabel_10);
+		
 		lblTopLabel_10_1 = new JLabel("acel_x=");
-		lblTopLabel_10_1.setBounds(0, 0, 100, 14);
+		lblTopLabel_10_1.setBounds(0, 14, 100, 14);
 		lblTopLabel_10_1.setForeground(Color.WHITE);
 		lblTopLabel_10_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_10.add(lblTopLabel_10_1);
 		
 		lblTopLabel_10_2 = new JLabel("acel_y=");
-		lblTopLabel_10_2.setBounds(0, 14, 100, 14);
+		lblTopLabel_10_2.setBounds(0, 28, 100, 14);
 		lblTopLabel_10_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_10_2.setForeground(Color.WHITE);
 		panel_10.add(lblTopLabel_10_2);
@@ -630,43 +658,43 @@ public class PiIoTTilesUX {
 		lblTopLabel_10_3 = new JLabel("acel_z=");
 		lblTopLabel_10_3.setForeground(Color.WHITE);
 		lblTopLabel_10_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_3.setBounds(0, 28, 100, 14);
+		lblTopLabel_10_3.setBounds(0, 42, 100, 14);
 		panel_10.add(lblTopLabel_10_3);
 		
 		lblTopLabel_10_4 = new JLabel("gyro_x=");
 		lblTopLabel_10_4.setForeground(Color.WHITE);
 		lblTopLabel_10_4.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_4.setBounds(0, 42, 100, 14);
+		lblTopLabel_10_4.setBounds(0, 56, 100, 14);
 		panel_10.add(lblTopLabel_10_4);
 
 		lblTopLabel_10_5 = new JLabel("gyro_y=");
 		lblTopLabel_10_5.setForeground(Color.WHITE);
 		lblTopLabel_10_5.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_5.setBounds(0, 56, 100, 14);
+		lblTopLabel_10_5.setBounds(0, 70, 100, 14);
 		panel_10.add(lblTopLabel_10_5);
 
 		lblTopLabel_10_6 = new JLabel("gyro_z=");
 		lblTopLabel_10_6.setForeground(Color.WHITE);
 		lblTopLabel_10_6.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_6.setBounds(0, 70, 100, 14);
+		lblTopLabel_10_6.setBounds(0, 84, 100, 14);
 		panel_10.add(lblTopLabel_10_6);
 
 		lblTopLabel_10_7 = new JLabel("mag_x=");
 		lblTopLabel_10_7.setForeground(Color.WHITE);
 		lblTopLabel_10_7.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_7.setBounds(0, 84, 100, 14);
+		lblTopLabel_10_7.setBounds(0, 98, 100, 14);
 		panel_10.add(lblTopLabel_10_7);
 
 		lblTopLabel_10_8 = new JLabel("mag_y=");
 		lblTopLabel_10_8.setForeground(Color.WHITE);
 		lblTopLabel_10_8.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_8.setBounds(0, 98, 100, 14);
+		lblTopLabel_10_8.setBounds(0, 112, 100, 14);
 		panel_10.add(lblTopLabel_10_8);
 
 		lblTopLabel_10_9 = new JLabel("mag_z=");
 		lblTopLabel_10_9.setForeground(Color.WHITE);
 		lblTopLabel_10_9.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_10_9.setBounds(0, 112, 100, 14);
+		lblTopLabel_10_9.setBounds(0, 126, 100, 14);
 		panel_10.add(lblTopLabel_10_9);
 		
 		lblBottomLabel_10 = new JLabel("Motion Data");
@@ -676,7 +704,7 @@ public class PiIoTTilesUX {
 		panel_10.add(lblBottomLabel_10);
 
 		lblIconLabel_10 = new JLabel("");
-		lblIconLabel_10.setBounds(0, 126, 100, 65);
+		lblIconLabel_10.setBounds(0, 140, 100, 50);
 		lblIconLabel_10.setForeground(Color.WHITE);
 		lblIconLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_10.add(lblIconLabel_10);
@@ -847,22 +875,31 @@ public class PiIoTTilesUX {
 		panel_15.setBackground(Color.DARK_GRAY);
 		panel_15.setBounds(740, 215, 100, 205);
 		frame.getContentPane().add(panel_15);
-		panel_15.setLayout(new BorderLayout(0, 0));
+		panel_15.setLayout(null);
 
 		JLabel lblTopLabel_15 = new JLabel("IoT Dash Button");
+		lblTopLabel_15.setBounds(0, 0, 100, 14);
 		lblTopLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_15.setForeground(Color.WHITE);
-		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
+		panel_15.add(lblTopLabel_15);
+		
+		lblTopLabel_15_1 = new JLabel("");
+		lblTopLabel_15_1.setForeground(Color.WHITE);
+		lblTopLabel_15_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTopLabel_15_1.setBounds(0, 14, 100, 14);
+		panel_15.add(lblTopLabel_15_1);
 
 		lblBottomLabel_15 = new JLabel("IoT Tron Device");
+		lblBottomLabel_15.setBounds(0, 191, 100, 14);
 		lblBottomLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_15.setForeground(Color.WHITE);
-		panel_15.add(lblBottomLabel_15, BorderLayout.SOUTH);
+		panel_15.add(lblBottomLabel_15);
 
 		lblIconLabel_15 = new JLabel("");
+		lblIconLabel_15.setBounds(0, 140, 100, 50);
 		lblIconLabel_15.setForeground(Color.WHITE);
 		lblIconLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_15.add(lblIconLabel_15, BorderLayout.CENTER);
+		panel_15.add(lblIconLabel_15);
 		lblIconLabel_15.setIcon(blockattack);
 
 		panel_16 = new JPanel();
@@ -1115,18 +1152,43 @@ public class PiIoTTilesUX {
 
 	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
-		if (stateOffice.indexOf("Night") != -1) {
+		if (stateMonitor.indexOf("Lock") != -1) {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Day_Mode");
-			stateOffice = "Day";
-			lblBottomLabel_4.setText("Office Day");
+			stateMonitor = "Update";
+			lblBottomLabel_4.setText("Update Tile");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Night_Mode");
-			stateOffice = "Night";
-			lblBottomLabel_4.setText("Office Night");
+			stateMonitor = "Lock";
+			lblBottomLabel_4.setText("Lock Tile");
 			lblIconLabel_4.setIcon(time_deleteIcon);
 		}
 	}
+
+	public void panel_4Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 6; i++) {
+					if (blink) {
+						panel_4.setBackground(Color.DARK_GRAY);
+						lblTopText_4.setBackground(Color.DARK_GRAY);
+					} else {
+						panel_4.setBackground(Color.RED);
+						lblTopText_4.setBackground(Color.RED);
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
 
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
@@ -1399,11 +1461,11 @@ public class PiIoTTilesUX {
 		JOptionPane.showMessageDialog(null,
 				"Clear IoT Dash Button Sensor process triggered by an Raspberry Pi event message.", "IoT Dash Button",
 				JOptionPane.INFORMATION_MESSAGE);
-		lblIconLabel_15.setText("");
+		lblTopLabel_15_1.setText("");
 	}
 
 	public void panel_15Alert(String alert) {
-		lblIconLabel_15.setText(alert);
+		lblTopLabel_15_1.setText(alert);
 		panel_15Blink();
 		gpioController();
 	}
@@ -1693,45 +1755,69 @@ public class PiIoTTilesUX {
 			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
 		}
 		
-//		if ((event.temp == 0) || (event.humidity == 0)) {
-//		} else {
+  		if (event.temp == 0) { // || (event.humidity == 0)) {
+			System.out.println("General Temperature is 0");
+  		} else {
 			panel_5Temp(event.temp + "' " + event.humidity + "%");
-//		}
+  		}
 
-		if ((event.alarm == null) || (event.alarm.isEmpty())) {
-		} else {
-  			panel_15Alert(event.alarm);
-		}
-
-		if (event.keypress == 0) { } else {
-			boolean keystate = false;
-			if (event.keypress == 1) {
-				panel_15Alert("Key_1");
-				keystate = true;
-			}
-			if (event.keypress == 2) {
-				panel_15Alert("Key_2");
-				keystate = true;
-			}
-			if (event.keypress == 3) {
-				panel_15Alert("Reed");
-				keystate = true;
-			}
-			if (event.keypress == 4) {
-				panel_15Alert("Prox");
-				keystate = true;
-			}
-			if (keystate = false) {
-				panel_15Alert("Key_" + event.keypress);
-			}
-		}
-		
 		if (event.light == 0) { } else {
 			String iStr = lf.format(event.light);
   			panel_19Alert(iStr.substring(0, 6));
 		}
 		
 //		getInstance().panel_9DoorOpened();
+		
+		if (stateMonitor.indexOf("Update") != -1) {
+			lblTopText_4.setText("");
+	 		boolean blink4panel = false;
+			lblTopText_4.setText("");
+			if ((event.message == null) || (event.message.isEmpty())) {
+	  		} else {
+				blink4panel = true;
+				lblTopText_4.setText("message=" + event.message + " ");
+			}
+				
+	  		if ((event.alarm == null) || (event.alarm.isEmpty())) {
+			} else {
+				blink4panel = true;
+				lblTopText_4.setText(lblTopText_4.getText() + " alarm=" + event.alarm + " ");
+			}
+	
+			if ((event.address == null) || (event.address.isEmpty())) {
+			} else {
+				blink4panel = true;
+				lblTopText_4.setText(lblTopText_4.getText() + " address=" + event.address);
+			}
+	
+			if (blink4panel) {
+				panel_4Blink();
+				blink4panel = false;
+			}
+		}
+		
+		if (event.keypress == 0) { } else {
+			boolean keystate = false;
+			if (event.keypress == 1) {
+				panel_15Alert("key=keypress_1");
+				keystate = true;
+			}
+			if (event.keypress == 2) {
+				panel_15Alert("key=keypress_1");
+				keystate = true;
+			}
+			if (event.keypress == 4) {
+				panel_15Alert("key=reed_relay");
+				keystate = true;
+			}
+			if (event.keypress == 8) {
+				panel_15Alert("key=proximity");
+				keystate = true;
+			}
+			if (keystate = false) {
+				panel_15Alert("key=type_" + event.keypress);
+			}
+		}
 		
 		if (event.accel_x == 0) { } else {
 			lblTopLabel_10_1.setText("acel_x=" + event.accel_x);
@@ -1776,7 +1862,7 @@ public class PiIoTTilesUX {
 			break;
 		case "100223": // 100223 - Temperature-Humidity Outside Temperature
 			if ((event.temp == 0) || (event.humidity == 0)) {
-				System.out.println("100222 - Temperature or Humidity is 0");
+				System.out.println("100223 - Temperature or Humidity is 0");
 			} else {
 				panel_18Temp(event.temp + "' " + event.humidity + "%");
 			}

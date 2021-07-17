@@ -46,12 +46,14 @@ public class IoTDatabase extends Thread {
 			listEventServerTime = new SimpleDateFormat(DateFormat).format(new Date());
 		} else {
 
-			incConnection();
-			List<Event> events = dataManager.getEventsServerTime(listEventServerTime);
-			for (Event e : events) {
-				listEventServerTime = e.serverTime;
+			if (alive) {
+				incConnection();
+				List<Event> events = dataManager.getEventsServerTime(listEventServerTime);
+				for (Event e : events) {
+					listEventServerTime = e.serverTime;
 
-				com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().processIoTTilesCommand(e);
+					com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().processIoTTilesCommand(e);
+				}
 			}
 		}
 	}
