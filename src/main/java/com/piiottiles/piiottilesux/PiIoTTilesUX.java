@@ -1754,7 +1754,7 @@ public class PiIoTTilesUX {
 			String iStr = lf.format(event.bearing);
 			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
 		}
-		
+		// remove (event.temp == 0) block for ESP8266 use
   		if (event.temp == 0) { // || (event.humidity == 0)) {
 			System.out.println("General Temperature is 0");
   		} else {
