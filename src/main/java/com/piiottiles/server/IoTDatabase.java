@@ -52,7 +52,7 @@ public class IoTDatabase extends Thread {
 				for (Event e : events) {
 					listEventServerTime = e.serverTime;
 
-					com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().processIoTTilesCommand(e);
+					com.piiottiles.piiottilesux.PiIoTTilesUX.getInstance().marshalIoTTilesCommand(e);
 				}
 			}
 		}

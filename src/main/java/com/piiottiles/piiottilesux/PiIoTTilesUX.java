@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.net.MalformedURLException;
 
 import java.awt.event.WindowAdapter;
@@ -333,7 +335,8 @@ public class PiIoTTilesUX {
 		
 		panel_1 = new JPanel();
 		panel_1.setToolTipText(
-				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Tron Things, like the Raspberry Pi Tron IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) "
+				+ "for Raspberry Pi IoT Tron Things, like the Raspberry Pi Tron IoT Web Camera.");
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -625,7 +628,8 @@ public class PiIoTTilesUX {
 
 		panel_10 = new JPanel();
 		panel_10.setToolTipText(
-				"The IoT ESP-01S WiFi Relay Expansion Module board is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.");
+				"The IoT ESP-01S WiFi Relay Expansion Module board is a simple and easy-to-use expansion board "
+				+ "that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.");
 		panel_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -742,7 +746,8 @@ public class PiIoTTilesUX {
 
 		panel_12 = new JPanel();
 		panel_12.setToolTipText(
-				"The Raspberry Pi IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, Open Window Shades, Activate Motion Sensors.");
+				"The Raspberry Pi IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office "
+				+ "Lights: ON, Control Thermostats, Answer Doorbell, Open Window Shades, Activate Motion Sensors.");
 		panel_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -772,7 +777,8 @@ public class PiIoTTilesUX {
 
 		panel_13 = new JPanel();
 		panel_13.setToolTipText(
-				"The Raspberry Pi IoT Display is a small device that can sit on your desk or be mounted to a wall. It provides situational awareness, alerts and notification messages from your IoT devices.");
+				"The Satellite Tron Smart Connect IoT Display is a small device that can be mounted in very small places. "
+				+ "It provides GPS, situational awareness, alerts and notification messages from your IoT Devices.");
 		panel_13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -784,7 +790,7 @@ public class PiIoTTilesUX {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(null);
 
-		lblTopLabel_13 = new JLabel("Pi IoT Tron GPS Position");
+		lblTopLabel_13 = new JLabel("Satellite Smart Connect IoT GPS");
 		lblTopLabel_13.setForeground(Color.WHITE);
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setBounds(0, 0, 205, 14);
@@ -820,7 +826,7 @@ public class PiIoTTilesUX {
 		lblTopLabel_13_5.setBounds(0, 70, 153, 14);
 		panel_13.add(lblTopLabel_13_5);
 		
-		lblBottomLabel_13 = new JLabel("Waiting GPS Position Update");
+		lblBottomLabel_13 = new JLabel("update=");
 		lblBottomLabel_13.setBounds(0, 86, 205, 14);
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
@@ -835,7 +841,9 @@ public class PiIoTTilesUX {
 
 		panel_14 = new JPanel();
 		panel_14.setToolTipText(
-				"The Raspberry Pi Wireless Alert Sensor provides for audio (door chime) and can be integrated with any wireless security system, driveway alarms, motion sensor, delivery detect alerts, wireless door entry chime, doorbell or panic button alarms.");
+				"The Raspberry Pi Wireless Alert Sensor provides for audio (door chime) and can be integrated "
+				+ "with any wireless security system, driveway alarms, motion sensor, delivery detect alerts, "
+				+ "wireless door entry chime, doorbell or panic button alarms.");
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -865,7 +873,8 @@ public class PiIoTTilesUX {
 
 		panel_15 = new JPanel();
 		panel_15.setToolTipText(
-				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash Button alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
+				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash "
+				+ "Button alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -904,7 +913,8 @@ public class PiIoTTilesUX {
 
 		panel_16 = new JPanel();
 		panel_16.setToolTipText(
-				"This is the default IoT Sensors jBPM Automation extended process. Use Drools Rules to start a specific IoT jBPM Automation process for this IoT sensor event.");
+				"This is the default IoT Sensors jBPM Automation extended process. Use Drools Rules "
+				+ "to start a specific IoT jBPM Automation process for this IoT sensor event.");
 		panel_16.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -934,7 +944,8 @@ public class PiIoTTilesUX {
 
 		panel_17 = new JPanel();
 		panel_17.setToolTipText(
-				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash Button alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
+				"The Raspberry Pi IoT Dash Button is a programmable button based on the Raspberry Pi WiFi Dash Button "
+				+ "alert and can be configured in Raspberry Pi AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -964,7 +975,8 @@ public class PiIoTTilesUX {
 
 		panel_18 = new JPanel();
 		panel_18.setToolTipText(
-				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.");
+				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S sends temperature "
+				+ "and humidity environment information to the IoT Tiles Panel and Tron IoT Display.");
 		panel_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1025,7 +1037,8 @@ public class PiIoTTilesUX {
 
 		panel_20 = new JPanel();
 		panel_20.setToolTipText(
-				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel "
+				+ "(dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
 		panel_20.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1040,7 +1053,8 @@ public class PiIoTTilesUX {
 
 		panel_21 = new JPanel();
 		panel_21.setToolTipText(
-				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
+				"Raspberry Pi IoT Tiles control smart office automation and monitoring is a control panel "
+				+ "(dashboard) for Raspberry Pi IoT Things, like the Raspberry Pi IoT Web Camera.");
 		panel_21.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1427,6 +1441,62 @@ public class PiIoTTilesUX {
 				"The Raspberry Pi IoT is used to Connect to External Devices", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public void panel_13Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 6; i++) {
+					if (blink) {
+						panel_13.setBackground(Color.RED);
+					} else {
+						panel_13.setBackground(new Color(0, 128, 0));
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
+	// Satellite Tron Smart Connect GPS Message
+	public void panel_13GPS(Event event) {	
+		DecimalFormat lf = new DecimalFormat("0.000000");
+		String DateFormat = "HH:mm:ss";
+		if ((event.lat == 0) || (event.lon == 0)) {
+		} else {
+			LatStr = lf.format(event.lat);
+			LonStr = lf.format(event.lon);
+			lblTopLabel_13_1.setText("lat=" + LatStr);
+			lblTopLabel_13_2.setText("lon=" + LonStr);
+		}
+		if (event.altitude == 0) { 
+			lblTopLabel_13_3.setText("alt=0.00");
+		} else {
+			String iStr = lf.format(event.altitude);
+			lblTopLabel_13_3.setText("alt=" + iStr.substring(0, 6));
+		}
+		if (event.speed == 0) { 
+			lblTopLabel_13_4.setText("speed=0.00");
+		} else {
+			String iStr = lf.format(event.speed);
+			lblTopLabel_13_4.setText("speed=" + iStr.substring(0, 6));
+		}
+		if (event.bearing == 0) { 
+			lblTopLabel_13_5.setText("bearing=0.00"); 
+		} else {
+			String iStr = lf.format(event.bearing);
+			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
+		}
+		String iStr = lf.format(event.satellites);
+		lblBottomLabel_13.setText("update=" + new SimpleDateFormat(DateFormat).format(new Date()) + "  satellites=" + iStr.substring(0, 3));
+		panel_13Blink();
+	}
+	
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
   		String mapurl = "http://www.google.com/maps?q=";
@@ -1728,66 +1798,41 @@ public class PiIoTTilesUX {
 				+ event.totalDistance + ",  " + event.agentCount + ",  " + event.motion);
 	}
 
-	// Marshall IoT command switch
-	public void processIoTTilesCommand(Event event) {
+	// Marshal IoT Tiles Command Switch
+	@SuppressWarnings("unused")
+	public void marshalIoTTilesCommand(Event event) {
 		printIoTTilesCommand(event);
-
 		DecimalFormat lf = new DecimalFormat("0.000000");
-		if ((event.lat == 0) || (event.lon == 0)) {
-			lblBottomLabel_13.setText("Waiting GPS Position Update");			
-		} else {
-			LatStr = lf.format(event.lat);
-			LonStr = lf.format(event.lon);
-			lblBottomLabel_13.setText("Pi IoT Tron Live GPS Position Update");
-			lblTopLabel_13_1.setText("lat=" + LatStr);
-			lblTopLabel_13_2.setText("lon=" + LonStr);
-		}
-		if (event.altitude == 0) { } else {
-			String iStr = lf.format(event.altitude);
-			lblTopLabel_13_3.setText("alt=" + iStr.substring(0, 6));
-		}
-		if (event.speed == 0) { } else {
-			String iStr = lf.format(event.speed);
-			lblTopLabel_13_4.setText("speed=" + iStr.substring(0, 6));
-		}
-		if (event.bearing == 0) { } else {
-			String iStr = lf.format(event.bearing);
-			lblTopLabel_13_5.setText("bearing=" + iStr.substring(0, 6));
-		}
-		// remove (event.temp == 0) block for ESP8266 use
-  		if (event.temp == 0) { // || (event.humidity == 0)) {
-			System.out.println("General Temperature is 0");
-  		} else {
-			panel_5Temp(event.temp + "' " + event.humidity + "%");
-  		}
 
+		if ((event.lat == 0) || (event.lon == 0)) {
+		} else {
+			panel_13GPS(event);
+		}
+			
 		if (event.light == 0) { } else {
 			String iStr = lf.format(event.light);
   			panel_19Alert(iStr.substring(0, 6));
 		}
 		
-//		getInstance().panel_9DoorOpened();
-		
 		if (stateMonitor.indexOf("Update") != -1) {
-			lblTopText_4.setText("");
 	 		boolean blink4panel = false;
 			lblTopText_4.setText("");
 			if ((event.message == null) || (event.message.isEmpty())) {
 	  		} else {
 				blink4panel = true;
-				lblTopText_4.setText("message=" + event.message + " ");
+				lblTopText_4.setText("message=" + event.message + "\r\n");
 			}
 				
 	  		if ((event.alarm == null) || (event.alarm.isEmpty())) {
 			} else {
 				blink4panel = true;
-				lblTopText_4.setText(lblTopText_4.getText() + " alarm=" + event.alarm + " ");
+				lblTopText_4.setText(lblTopText_4.getText() + "alarm=" + event.alarm + "\r\n");
 			}
 	
 			if ((event.address == null) || (event.address.isEmpty())) {
 			} else {
 				blink4panel = true;
-				lblTopText_4.setText(lblTopText_4.getText() + " address=" + event.address);
+				lblTopText_4.setText(lblTopText_4.getText() + "address=" + event.address);
 			}
 	
 			if (blink4panel) {
@@ -1803,7 +1848,7 @@ public class PiIoTTilesUX {
 				keystate = true;
 			}
 			if (event.keypress == 2) {
-				panel_15Alert("key=keypress_1");
+				panel_15Alert("key=keypress_2");
 				keystate = true;
 			}
 			if (event.keypress == 4) {
@@ -1853,7 +1898,7 @@ public class PiIoTTilesUX {
 		case "100111": // 100111 - Arduino Tron IoT
 			System.out.println("100111 - Arduino Tron IoT");
 			break;
-		case "100222": // 100222 - Temperature-Humidity
+		case "100222": // 100222 - Temperature-Humidity Office Temperature
 			if ((event.temp == 0) || (event.humidity == 0)) {
 				System.out.println("100222 - Temperature or Humidity is 0");
 			} else {
@@ -1900,7 +1945,7 @@ public class PiIoTTilesUX {
 			System.out.println("100910 - Jarvis Pi IoT Tron");
 			break;
 		case "100920": // 100920 - EOSpy IoT GPS Position - com.GPSPositionTron
-			System.out.println("100920 - EOSpy IoT GPS Position");
+			System.out.println("100920 - Satellite Tron Smart Connect IoT GPS Position");
 			break;
 		case "100930": // 100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment
 			System.out.println("100930 - IoT-TISensorTag GPS Environment - com.TISensorTagEnvironment");
