@@ -1171,6 +1171,7 @@ public class PiIoTTilesUX {
 			stateMonitor = "Update";
 			lblBottomLabel_4.setText("Update Tile");
 			lblIconLabel_4.setIcon(time_addIcon);
+			lblTopText_4.setText("");
 		} else {
 			com.piiottiles.server.IoTCommand.getInstance().sendPost("Arduino Tron IoT Display", "&textMessage=Office_Night_Mode");
 			stateMonitor = "Lock";
